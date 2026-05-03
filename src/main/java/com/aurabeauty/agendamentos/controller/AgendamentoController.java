@@ -51,7 +51,7 @@ public class AgendamentoController {
     public ResponseEntity<?> listarPorData(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data
     ) {
-        // Define o início do dia (00:00:00) e o fim do dia (23:59:59)
+
         var inicioDia = data.atStartOfDay();
         var fimDia = data.atTime(LocalTime.MAX);
 
@@ -84,13 +84,12 @@ public class AgendamentoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
-        // Busca a referência do agendamento no banco
+
         var agendamento = repository.getReferenceById(id);
 
-        // Chama o método de cancelamento que criaremos na Entidade
+
         agendamento.cancelar();
 
-        // Retorna 204 No Content (sucesso sem corpo de resposta)
         return ResponseEntity.noContent().build();
     }
 }

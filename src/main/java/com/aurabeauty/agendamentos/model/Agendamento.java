@@ -42,7 +42,7 @@ public class Agendamento {
                 this.servico = servico;
                 this.profissional = dados.profissional();
                 this.dataHora = dados.data();
-                this.valor = servico.getPreco(); // Aqui a mágica acontece!
+                this.valor = servico.getPreco();
                 this.status = StatusAgendamento.AGENDADO;
         }
 
@@ -57,12 +57,12 @@ public class Agendamento {
                 }
                 if (novoServico != null) {
                         this.servico = novoServico;
-                        this.valor = novoServico.getPreco(); // Se mudar o serviço, o preço atualiza!
+                        this.valor = novoServico.getPreco();
                 }
         }
 
         public void cancelar() {
-                // Certifique-se de que o seu Enum StatusAgendamento tenha a opção CANCELADO
+
                 this.status = StatusAgendamento.CANCELADO;
         }
     }
