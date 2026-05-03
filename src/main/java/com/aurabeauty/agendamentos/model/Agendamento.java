@@ -60,5 +60,10 @@ public class Agendamento {
                         this.valor = novoServico.getPreco(); // Se mudar o serviço, o preço atualiza!
                 }
         }
+
+        public void cancelar() {
+                // Certifique-se de que o seu Enum StatusAgendamento tenha a opção CANCELADO
+                this.status = StatusAgendamento.CANCELADO;
+        }
     }
 

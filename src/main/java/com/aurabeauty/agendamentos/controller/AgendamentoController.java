@@ -80,4 +80,17 @@ public class AgendamentoController {
 
         return ResponseEntity.ok(new DadosDetalhamentoAgendamento(agendamento));
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity excluir(@PathVariable Long id) {
+        // Busca a referência do agendamento no banco
+        var agendamento = repository.getReferenceById(id);
+
+        // Chama o método de cancelamento que criaremos na Entidade
+        agendamento.cancelar();
+
+        // Retorna 204 No Content (sucesso sem corpo de resposta)
+        return ResponseEntity.noContent().build();
+    }
 }
