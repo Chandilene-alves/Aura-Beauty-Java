@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap"
+            rel="stylesheet"
+    />
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/agendamentos.css}" />
+    <link rel="stylesheet" th:href="@{/css/servico.css}" />
+    <link rel="stylesheet" th:href="@{/styles/index.css}" />
+
+    <title>Aura Beauty Lounge</title>
+</head>
+<body>
+<aside class="sidebar">
+    <div class="logo">
+        <img th:src="@{/assets/logo.svg}" alt="Aura Beauty Lounge" />
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="#"><img th:src="@{/assets/icons/home.svg}" alt="" /> Dashboard</a>
+            </li>
+            <li>
+                <a th:href="@{/agendamentos.html}">
+                    <img th:src="@{/assets/icons/calendar.svg}" alt="" /> Agendamentos
+                </a>
+            </li>
+            <li>
+                <a class="active" href="#">
+                    <img th:src="@{/assets/icons/services.svg}" alt="" /> Serviços
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img th:src="@{/assets/icons/analytics.svg}" alt="" /> Relatórios
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<header class="main-header">
+    <div class="page-title">
+        <h1>Serviços</h1>
+    </div>
+
+    <div class="user-menu">
+        <div class="profile">
+            <img th:src="@{/assets/icons/profile.svg}" alt="Avatar" class="avatar" />
+            <span>admin</span>
+            <img
+                    th:src="@{/assets/icons/arrow-down.svg}"
+                    alt="Expandir"
+                    class="chevron"
+            />
+        </div>
+    </div>
+</header>
+<main class="content">
+    <section class="appointments-section card">
+        <div class="section-header">
+            <h2>Gerenciador de Serviços - Listas e Preços, Admin!</h2>
+            <button class="btn-new-appointment">
+                <img th:src="@{/assets/icons/add.svg}" alt="" /> Novo Serviço
+            </button>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nome do serviço</th>
+                <th>Descrição curta</th>
+                <th>Duração</th>
+                <th>Preço</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Corte Feminino</td>
+                <td>Corte e Finalização p/ mulheres</td>
+                <td>1h</td>
+                <td>R$150,00</td>
+                <td>
+                    <button class="btn-edit">
+                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
+                    </button>
+                    <button class="btn-delete">
+                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Corte e cor completa</td>
+                <td>Corte com Coloração Total</td>
+                <td>3h</td>
+                <td>R$380,00</td>
+                <td>
+                    <button class="btn-edit">
+                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
+                    </button>
+                    <button class="btn-delete">
+                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Barba Desing</td>
+                <td>Design e manutenção de barba</td>
+                <td>45min</td>
+                <td>R$80,00</td>
+                <td>
+                    <button class="btn-edit">
+                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
+                    </button>
+                    <button class="btn-delete">
+                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Manicure Simples</td>
+                <td>Limpeza e esmaltação comum</td>
+                <td>30min</td>
+                <td>R$50,00</td>
+                <td>
+                    <button class="btn-edit">
+                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
+                    </button>
+                    <button class="btn-delete">
+                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Maquiagem Social</td>
+                <td>Maquiagem p/ eventos</td>
+                <td>1.5h</td>
+                <td>R$220,00</td>
+                <td>
+                    <button class="btn-edit">
+                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
+                    </button>
+                    <button class="btn-delete">
+                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Hidratação Facial Deep</td>
+                <td>Limpeza e nutrição profunda</td>
+                <td>1h</td>
+                <td>R$180,00</td>
+                <td>
+                    <button class="btn-edit">
+                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
+                    </button>
+                    <button class="btn-delete">
+                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<div id="modal-agendamento" class="modal-overlay">
+    <div class="modal-content">
+        <header class="modal-header">
+            <h2>Novo Agendamento</h2>
+            <button class="close-modal" id="btn-fechar">&times;</button>
+        </header>
+
+        <form id="form-agendamento">
+            <div class="modal-grid">
+                <div class="modal-col">
+                    <div class="input-group">
+                        <label for="input-cliente"><span class="step-number">1</span> Cliente</label>
+                        <input
+                                id="input-cliente"
+                                type="text"
+                                placeholder="Buscar ou cadastrar cliente..."
+                        />
+                    </div>
+                    <div class="input-group">
+                        <label for="select-servico"><span class="step-number">2</span> Serviço</label>
+                        <select id="select-servico">
+                            <option>Selecione o serviço</option>
+                            <option>Corte Feminino</option>
+                            <option>Hidratação Facial</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-col">
+                    <div class="input-group">
+                        <label for="input-data-hora"><span class="step-number">3</span> Data e Hora</label>
+                        <input id="input-data-hora" type="date" />
+                        <div class="time-slots">
+                            <span class="time-tag">10:00</span>
+                            <span class="time-tag active">10:15</span>
+                            <span class="time-tag">10:30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="calendario-custom"><span class="step-number">3</span> Data do Agendamento</label>
+                    <input
+                            type="text"
+                            id="calendario-custom"
+                            placeholder="Escolha a data..."
+                    />
+                </div>
+
+                <div class="modal-col summary-col">
+                    <div class="summary-box">
+                        <p><strong>Serviço:</strong> Corte Feminino - 1h</p>
+                        <p><strong>Profissional:</strong> Sofia</p>
+                        <hr />
+                        <div class="total-row">
+                            <span>Total</span>
+                            <span>R$ 150,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="modal-footer">
+                <button type="button" class="btn-cancel" id="btn-cancelar">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn-confirm">
+                    Confirmar Agendamento
+                </button>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<script th:src="@{/scripts/modal-agendamento.js}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        flatpickr("#calendario-custom", {
+            inline: true,
+            dateFormat: "d/m/Y",
+            minDate: "today",
+            locale: {
+                firstDayOfWeek: 1,
+            },
+        });
+    });
+</script>
+</body>
+</html>

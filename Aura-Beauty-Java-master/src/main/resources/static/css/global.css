@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lato", sans-serif;
+}
+
+:root {
+    --aura-gold: #c5a059;
+    --aura-teal: #1b4342;
+    --aura-teal-light: #2a5c5a;
+    --aura-cream-bg: #f5f2eb;
+    --aura-white: #ffffff;
+
+    /* --- TEXTOS --- */
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --text-on-dark: #ffffff;
+
+    /* --- CORES DE TABELA E STATUS (Agendamentos/Serviços) --- */
+    --row-hover: #f9f7f2;
+    --status-process: #f2d960;
+    --status-pending: #cba547;
+    --status-confirmed: #81c784;
+
+    /* --- BORDAS E SOMBRAS --- */
+    --border-color: #e0dcd1;
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    --bg-card-table: rgba(235, 237, 245, 0.815);
+    --head-table: #c8dfdd;
+    --linhas-table: #ebe4d2;
+    --border-linhas-table: #fad882;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+}

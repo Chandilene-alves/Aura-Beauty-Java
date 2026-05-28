@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+.page-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../assets/logo.svg') no-repeat center center fixed;
+    background-size: cover;
+    background-color: #eae3db;
+    padding: 20px;
+}
+
+.register-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    width: 100%;
+    max-width: 460px;
+    padding: 35px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.card-header .logo {
+    max-width: 110px;
+    margin-bottom: 10px;
+}
+
+.card-header h1 {
+    font-size: 22px;
+    color: #1a1a1a;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.input-group {
+    width: 100%;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+    margin-left: 4px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #253d40;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    font-size: 15px;
+    color: #000;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.input-group input::placeholder {
+    color: #777;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    padding-right: 45px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #253d40;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-top: 15px;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #192a2c;
+}
+
+.card-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.card-footer a {
+    color: #253d40;
+    font-size: 14px;
+    text-decoration: underline;
+    font-weight: 600;
+}
