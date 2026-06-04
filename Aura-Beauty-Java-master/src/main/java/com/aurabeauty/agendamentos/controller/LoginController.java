@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
+@CrossOrigin(origins = "*")
 @RequestMapping("/login")
 public class LoginController {
 
@@ -21,17 +23,21 @@ public class LoginController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping("")
+    @GetMapping
+    public String exibirLogin() {
+        return "login";
+    }
+    @PostMapping("/api")
+    @ResponseBody
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
-        // Cria o token de autenticação do Spring com os dados vindos do DTO
+
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
 
-        // O Manager chama o seu AutenticacaoService e compara a senha criptografada
-        var authentication = manager.authenticate(authenticationToken);
 
-        // Se a autenticação passar, gera o Token JWT
+        var authentication = manager.authenticate(authenticationToken);
+        var usuario = (Usuario) authentication.getPrincipal();
         var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT, usuario.getNome()));
     }
 }

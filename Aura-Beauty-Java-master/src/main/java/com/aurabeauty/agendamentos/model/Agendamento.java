@@ -28,13 +28,13 @@ public class Agendamento {
         @Column(name = "data_hora")
         private LocalDateTime dataHora;
 
-        private BigDecimal valor; // Para o "Total R$ 150,00"
+        private BigDecimal valor;
 
-        @Enumerated(EnumType.STRING) // Salva o nome (ex: "AGENDADO") no banco
-        private StatusAgendamento status = StatusAgendamento.AGENDADO;
+        @Enumerated(EnumType.STRING)
+        private StatusAgendamento status ;
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "id_servico") // Nome da coluna FK no banco
+        @JoinColumn(name = "id_servico")
         private Servico servico;
 
         public Agendamento(DadosAgendamento dados, Servico servico) {

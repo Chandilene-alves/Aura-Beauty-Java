@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/agendamentos")
+@RequestMapping("/api/agendamentos")
 public class AgendamentoController {
 
     @Autowired
@@ -30,7 +31,6 @@ public class AgendamentoController {
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamento dados) {
         var servico = servicoRepository.getReferenceById(dados.idServico());
-        // Criando o objeto com os dados que vieram do Postman
         var agendamento = new Agendamento(dados, servico);
 
         repository.save(agendamento);
@@ -60,8 +60,23 @@ public class AgendamentoController {
                 .toList();
 
         if (lista.isEmpty()) {
-            return ResponseEntity.ok("Não há agendamentos para o dia " + data);
+            return ResponseEntity.ok(Collections.emptyList());
         }
+
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/periodo")
+    public ResponseEntity<List<DadosDetalhamentoAgendamento>> listarPorPeriodo(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim
+    ) {
+        var inicioPeriodo = inicio.atStartOfDay();
+        var fimPeriodo = fim.atTime(LocalTime.MAX);
+
+        var lista = repository.findAllByDataHoraBetween(inicioPeriodo, fimPeriodo).stream()
+                .map(DadosDetalhamentoAgendamento::new)
+                .toList();
 
         return ResponseEntity.ok(lista);
     }

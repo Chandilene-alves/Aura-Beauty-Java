@@ -28,9 +28,17 @@ public class SecurityConfigurations {
         return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    // A LIBERAÇÃO DEVE VIR ANTES DE QUALQUER BLOQUEIO
-                    req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
+                    req.dispatcherTypeMatchers(jakarta.servlet.DispatcherType.FORWARD).permitAll();
+                    req.requestMatchers("/css/**", "/js/**", "/assets/**").permitAll();
+
+                    req.requestMatchers( "/login/**").permitAll();
+
+
+                    req.requestMatchers(HttpMethod.GET, "/usuarios").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/usuarios/api").permitAll();
+
+                    req.requestMatchers(HttpMethod.GET, "/agendamentos").permitAll();
+                    req.requestMatchers("/api/agendamentos/**").authenticated();
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

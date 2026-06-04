@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/servicos")
+@RequestMapping("api/servicos")
 public class ServicoController {
     @Autowired
     private ServicoRepository repository;

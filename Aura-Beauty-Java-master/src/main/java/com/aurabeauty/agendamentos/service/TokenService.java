@@ -23,7 +23,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("API Aura Beauty Lounge")
                     .withSubject(usuario.getEmail())
-                    .withExpiresAt(dataExpiracao()) // Sessão expira em 2 horas
+                    .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar token jwt", exception);
@@ -32,7 +32,7 @@ public class TokenService {
 
     public String getSubject(String tokenJWT) {
         try {
-            var algoritmo = Algorithm.HMAC256(secret); // Certifique-se de que a variável 'secret' existe aqui
+            var algoritmo = Algorithm.HMAC256(secret);
             return JWT.require(algoritmo)
                     .withIssuer("API Aura Beauty Lounge")
                     .build()

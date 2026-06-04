@@ -1,6 +1,7 @@
 package com.aurabeauty.agendamentos.dto;
 
 import com.aurabeauty.agendamentos.model.Agendamento;
+import com.aurabeauty.agendamentos.model.StatusAgendamento;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,9 +12,10 @@ public record DadosDetalhamentoAgendamento(
         String profissional,
         LocalDateTime data,
         BigDecimal valor,
-        // Aqui trazemos os dados da tabela de serviço
+
         String nomeServico,
-        Integer duracao
+        Integer duracao,
+        StatusAgendamento status
 ) {
     public DadosDetalhamentoAgendamento(Agendamento agendamento) {
         this(
@@ -22,8 +24,9 @@ public record DadosDetalhamentoAgendamento(
                 agendamento.getProfissional(),
                 agendamento.getDataHora(),
                 agendamento.getValor(),
-                agendamento.getServico().getNome(), // Busca da tabela relacionada
-                agendamento.getServico().getDuracaoMinutos() // Busca da tabela relacionada
+                agendamento.getServico().getNome(),
+                agendamento.getServico().getDuracaoMinutos(),
+                agendamento.getStatus()
         );
     }
 }
