@@ -3,22 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!--    <link rel="preconnect" href="https://fonts.googleapis.com" />-->
-<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />-->
-<!--    <link-->
-<!--            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"-->
-<!--            rel="stylesheet"-->
-<!--    />-->
 
-<!--    <link-->
-<!--            rel="stylesheet"-->
-<!--            href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"-->
-<!--    />-->
-<!--    <link-->
-<!--            rel="stylesheet"-->
-<!--            type="text/css"-->
-<!--            href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css"-->
-<!--    />-->
 
     <title>Aura Beauty Lounge</title>
     <link rel="stylesheet" th:href="@{/css/global.css}">
@@ -63,7 +48,7 @@
     <div class="user-menu">
         <div class="profile">
             <img th:src="@{/assets/icons/profile.svg}" alt="Avatar" class="avatar" />
-            <span>admin</span>
+            <span id="saudacao-header"></span>
             <img
                     th:src="@{/assets/icons/arrow-down.svg}"
                     alt="Expandir"
@@ -75,73 +60,65 @@
 <main class="content">
     <section class="appointments-section card">
         <div class="section-header">
-            <h2>Bom dia, Admin!</h2>
+            <h2 id="saudacao-banner"></h2>
             <button class="btn-new-appointment">
                 <img th:src="@{/assets/icons/add.svg}" alt="" /> Novo Agendamento
             </button>
         </div>
 
-        <h3>Agendamentos do Dia - Quarta-feira</h3>
+      <h3 class="subtitulo-agenda">Liste seus agendamentos: </h3>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Horário</th>
-                <th>Cliente</th>
-                <th>Serviço</th>
-                <th>Duração</th>
-                <th>Status</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>09:00</td>
-                <td>Ana Silva</td>
-                <td>Corte e Cor</td>
-                <td>2h</td>
-                <td><span class="status confirmed">Confirmado</span></td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>11:00</td>
-                <td>Camila Calve</td>
-                <td>Hidratação facial</td>
-                <td>2h</td>
-                <td><span class="status pending">Pendente</span></td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>11:00</td>
-                <td>Mellissa Ferreira</td>
-                <td>design de sobrancelhas</td>
-                <td>2h</td>
-                <td><span class="status process">Em andamento</span></td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div id="container-cards" class="cards-dashboard">
+            <div class="card-periodo" onclick="filtrarAgendamentos('hoje')" >
+                <h3>Hoje</h3>
+            </div>
+            <div class="card-periodo" onclick="filtrarAgendamentos('semana')">
+                <h3>Semana</h3>
+            </div>
+            <div class="card-periodo" onclick="filtrarAgendamentos('mes')">
+                <h3>Mês</h3>
+            </div>
+        </div>
+
+        <div id="container-tabela" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; ">
+                <h2 id="titulo-listagem">Agendamentos</h2>
+                <button onclick="voltarParaCards()" class="btn-voltar">⬅ Voltar aos Filtros</button>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Dia e Horário</th>
+                    <th>Cliente</th>
+                    <th>Serviço</th>
+                    <th>Profissional</th>
+                    <th>Duração</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody id="table-agendamentos">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><span class="status "></span></td>
+                    <td>
+                        <button class="btn-edit">
+                            <img th:src="@{/assets/icons/edit.svg}" alt="" />
+                        </button>
+                        <button class="btn-delete">
+                            <img th:src="@{/assets/icons/delete.svg}" alt="" />
+                        </button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
     </section>
 </main>
 
@@ -161,32 +138,28 @@
                 <div class="modal-col">
                     <div class="input-group">
                         <label><span class="step-number">1</span> Cliente</label>
-                        <input type="text" placeholder="Nome do cliente" />
+                        <input type="text" id="modal-cliente" placeholder="Nome do cliente" required />
                     </div>
                     <div class="input-group">
                         <label><span class="step-number">2</span> Serviço</label>
-                        <select>
-                            <option>Selecione o serviço</option>
-                            <option>Corte Feminino</option>
-                            <option>Hidratação Facial</option>
-                            <option>Corte Feminino</option>
-                            <option>Hidratação Facial</option>
+                        <select id="modal-servico" required>
+                            <option value="">Selecione o serviço</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label><span class="step-number">3</span> Profissional</label>
-                        <input type="text" placeholder="Nome do colaborador" />
+                        <input type="text" id="modal-profissional" placeholder="Nome do colaborador" required/>
                     </div>
                 </div>
 
                 <div class="modal-col">
                     <div class="input-group">
                         <label><span class="step-number">4</span> Data e Hora</label>
-                        <input type="date" />
+                        <input type="date" id="modal-data" required />
                     </div>
                     <div>
                         <label> Horários</label>
-                        <ul>
+                        <ul id="modal-horarios">
                             <li>9:00</li>
                             <li>10:00</li>
                             <li>11:00</li>
@@ -206,14 +179,14 @@
 
                 <div class="modal-col summary-col">
                     <div class="summary-box">
-                        <p><span>Cliente:</span> Camilla Calve</p>
-                        <p><span>Serviço:</span> Corte Feminino</p>
-                        <p><span>Profissional:</span> Sofia</p>
-                        <p><span>Data e Hora:</span> 20/06 - 16:00h</p>
+                        <p><span>Cliente:</span> <span id="resumo-cliente">-</span></p>
+                        <p><span>Serviço:</span> <span id="resumo-servico">-</span></p>
+                        <p><span>Profissional:</span> <span id="resumo-profissional">-</span></p>
+                        <p><span>Data e Hora:</span> <span id="resumo-data-hora">-</span></p>
 
                         <div class="total-row">
                             <span>Total</span>
-                            <span>R$ 150,00</span>
+                            <span id="resumo-total">R$ 0,00</span>
                         </div>
                     </div>
                 </div>
@@ -231,6 +204,7 @@
     </div>
 </div>
 
+<script th:src="@{/js/agendamentos.js}"></script>
 <script th:src="@{/js/modal-agendamento.js}"></script>
 </body>
 </html>

@@ -11,37 +11,35 @@
 <div class="background"></div>
 
 <div class="card">
-
     <div class="logo-container">
         <img th:src="@{/assets/logo.svg}" alt="Aura Beauty Lounge Logo" class="logo-img">
     </div>
 
     <hr>
+    <form id="loginForm">
+        <h2>Bem-vindo!</h2>
+        <p class="desc">Faça login para gerenciar seus agendamentos.</p>
 
-    <h2>Bem-vindo!</h2>
-    <p class="desc">Faça login para gerenciar seus agendamentos.</p>
+        <label for="username">E-mail </label>
+        <input type="text" id="username" placeholder="seu.email@exemplo.com" required>
 
-    <label>E-mail ou Usuário</label>
-    <input type="text" placeholder="seu.email@exemplo.com">
+        <label for="password">Senha</label>
+        <input type="password" id="password" placeholder="Digite sua senha" required>
 
-    <label>Senha</label>
-    <input type="password" placeholder="Digite sua senha">
+        <div class="row">
 
-    <div class="row">
-        <div class="check"><label><input type="checkbox"> Lembrar de mim</label></div>
+            <a href="#">Esqueceu a senha?</a>
+        </div>
 
-        <a href="#">Esqueceu a senha?</a>
-    </div>
+        <button type="submit" class="login" id="loginBtn">Entrar</button>
 
-    <button class="login">Entrar</button>
+        <p class="signup">
+            Não tem uma conta? <a th:href="@{/criarconta}">Criar conta</a>
+        </p>
+        <hr>
+    </form>
+</div>
 
-    <p class="signup">
-        Não tem uma conta? <a href="#">Criar conta</a>
-    </p>
-
-    <hr>
-
-
-
-</div> </body>
+<script th:src="@{/js/login.js}"></script>
+</body>
 </html>

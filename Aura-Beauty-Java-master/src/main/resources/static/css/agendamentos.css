@@ -4,6 +4,7 @@ body {
   grid-template-rows: auto 1fr;
   min-height: 100vh;
   margin: 0;
+    overflow-y:scroll;
 }
 
 aside {
@@ -175,6 +176,15 @@ z-index: 3;
     font-weight: 500;
 }
 
+.subtitulo-agenda {
+    font-size: 1.2rem;
+    color: var(--aura-teal);
+    margin-top: 10px;
+    margin-bottom: 25px;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
 table {
     background-color: var(--aura-white);
     width: 100%;
@@ -186,28 +196,30 @@ table {
 
 thead th {
     background-color: var(--head-table); 
-    padding: 12px 15px;
+    padding: 10px 15px;
     text-align: left;
     color: var(--aura-teal);
     font-weight: 600;
 }
 
-/* Arredondar cantos do cabeçalho */
+
+
 thead th:first-child { border-radius: 8px 0 0 8px; }
 thead th:last-child { border-radius: 0 8px 8px 0; }
 
 tbody td {
-    padding: 15px;
+    padding: 8px 8px;
     background-color:var(--linhas-table); 
     border-radius: 10px;
     border: 1px solid var(--border-linhas-table);
 }
 
-/* Estilização das Pílulas de Status */
+
+
 .status {
-    padding: 6px 12px;
+    padding: 4px 12px;
     border-radius: 20px;
-  
+    display: inline-block;
     font-weight: 500;
 }
 
@@ -218,11 +230,11 @@ tbody td {
 .status.pending {
     background-color: var(--status-pending);
 }
-.status.process {
-    background-color: var(--status-process);
+.status.cancel {
+    background-color: #fca7a7;
 }
 
-/* Botões de Ação */
+
 .btn-edit{
     margin-right: 15px;
 }
@@ -237,4 +249,58 @@ tbody td {
 .btn-edit:hover, .btn-delete:hover {
     opacity: 1;
     transform: scale(1.1);
+}
+
+.cards-dashboard {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.card-periodo {
+    background-color: var(--aura-white);
+    border: 2px solid var(--border-linhas-table);
+    border-radius: 20px;
+    padding: 30px 20px;
+    width: 280px;
+    height: 280px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-periodo h3 {
+    margin: 0;
+    font-size: 1.80rem;
+    color: var(--aura-teal);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.card-periodo:hover {
+    transform: translateY(-6px);
+    border-color: var(--aura-gold);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.btn-voltar {
+    background-color: transparent;
+    color: var(--aura-teal);
+    border: 1.5px solid var(--aura-teal);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background-color: var(--aura-teal);
+    color: var(--aura-white);
 }
