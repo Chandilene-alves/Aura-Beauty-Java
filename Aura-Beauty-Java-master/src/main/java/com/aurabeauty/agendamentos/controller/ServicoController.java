@@ -35,7 +35,7 @@ public class ServicoController {
     @GetMapping
     @Transactional
     public ResponseEntity<List<DadosListagemServico>> listar(){
-        var servicos = repository.findAll().stream()
+        var servicos = repository.findAllByAtivoTrue().stream()
                 .map(DadosListagemServico::new)
                 .toList();
         return ResponseEntity.ok(servicos);
@@ -45,11 +45,7 @@ public class ServicoController {
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoServico dados){
         var servico = repository.getReferenceById(dados.id());
-
-        if(dados.nome() != null) servico.setNome(dados.nome());
-        if(dados.descricaoCurta() != null) servico.setDescricaoCurta(dados.descricaoCurta());
-        if(dados.duracaoMinutos() != null) servico.setDuracaoMinutos(dados.duracaoMinutos());
-        if(dados.preco() != null) servico.setPreco(dados.preco());
+        servico.atualizarInformacoes(dados);
 
         return ResponseEntity.ok(new DadosListagemServico(servico));
     }

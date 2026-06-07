@@ -1,5 +1,6 @@
 
 let filtroAtual = "";
+let agendamentoId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
@@ -124,6 +125,15 @@ function voltarParaCards() {
     document.getElementById("container-cards").style.display = "flex";
 }
 
+function formatarNome(nome) {
+    if (!nome) return '';
+    return nome
+        .toLowerCase()
+        .split(' ')
+        .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1))
+        .join(' ');
+}
+
 
 function exibirAgendamentos(lista) {
 
@@ -167,9 +177,9 @@ function exibirAgendamentos(lista) {
 
         linha.innerHTML = `
             <td>${dataFormatada} | ${horaFormatada}</td>
-            <td><strong>${agendamento.cliente}</strong></td>
+            <td><strong>${formatarNome(agendamento.cliente)}</strong></td>
             <td>${agendamento.nomeServico || 'Serviço'}</td>
-            <td><strong>${agendamento.profissional}</strong></td>
+            <td><strong>${formatarNome(agendamento.profissional)}</strong></td>
             <td>${agendamento.duracao || '45 min'}</td>
             <td><span class="status ${classeStatus}">${textoStatus}</span></td>
             <td>
@@ -177,7 +187,7 @@ function exibirAgendamentos(lista) {
                     <img src="/assets/icons/edit.svg" alt="Editar" />
                 </button>
                 <button class="btn-delete" onclick="cancelarAgendamento(${agendamento.id})">
-                    <img src="/assets/icons/delete.svg" alt="Deletar" />
+                    <img src="/assets/icons/block.svg" alt="Deletar" />
                 </button>
             </td>
         `;
@@ -209,6 +219,4 @@ async function cancelarAgendamento(id) {
     }
 }
 
-function editarAgendamento(id) {
-    console.log("Abrir modal de edição para o agendamento: " + id);
-}
+

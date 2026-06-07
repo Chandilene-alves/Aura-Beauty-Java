@@ -4,6 +4,7 @@ import com.aurabeauty.agendamentos.dto.DadosAgendamento;
 import com.aurabeauty.agendamentos.dto.DadosAtualizacaoAgendamento;
 import com.aurabeauty.agendamentos.dto.DadosDetalhamentoAgendamento;
 import com.aurabeauty.agendamentos.model.Agendamento;
+import com.aurabeauty.agendamentos.model.Servico;
 import com.aurabeauty.agendamentos.repository.AgendamentoRepository;
 import com.aurabeauty.agendamentos.repository.ServicoRepository;
 import jakarta.validation.Valid;
@@ -30,6 +31,11 @@ public class AgendamentoController {
     @PostMapping
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamento dados) {
+        if (repository.existsByDataHora(dados.data())) {
+            return ResponseEntity.badRequest()
+                    .body("Já existe um serviço agendamento para este dia e horário!");
+        }
+
         var servico = servicoRepository.getReferenceById(dados.idServico());
         var agendamento = new Agendamento(dados, servico);
 
@@ -81,17 +87,30 @@ public class AgendamentoController {
         return ResponseEntity.ok(lista);
     }
 
-    @PutMapping
+    @GetMapping("/{id}")
+    public ResponseEntity editar(@PathVariable Long id){
+        var agendamento = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
+
+        return ResponseEntity.ok(new DadosDetalhamentoAgendamento(agendamento));
+    }
+
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoAgendamento dados){
+        if (repository.existsByDataHoraAndIdNot(dados.data(), dados.id())) {
+            return ResponseEntity.badRequest()
+                    .body("Não foi possível atualizar: Este dia e horário já estão reservados!");
+        }
+
         var agendamento = repository.getReferenceById(dados.id());
 
-        if(dados.idServico() != null){
-            var novoServico = servicoRepository.getReferenceById(dados.idServico());
-            agendamento.atualizarInformacoes(dados, novoServico);
-        }else{
-            agendamento.atualizarInformacoes(dados, null);
+        Servico novoServico = null;
+        if (dados.idServico() != null) {
+            novoServico = servicoRepository.getReferenceById(dados.idServico());
         }
+
+        agendamento.atualizarInformacoes(dados, novoServico);
 
         return ResponseEntity.ok(new DadosDetalhamentoAgendamento(agendamento));
     }
@@ -101,7 +120,6 @@ public class AgendamentoController {
     public ResponseEntity excluir(@PathVariable Long id) {
 
         var agendamento = repository.getReferenceById(id);
-
 
         agendamento.cancelar();
 

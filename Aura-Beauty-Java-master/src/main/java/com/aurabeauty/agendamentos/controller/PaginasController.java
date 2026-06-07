@@ -8,4 +8,14 @@ public class PaginasController {
     public String exibirPaginaAgendamentos() {
         return "agendamentos";
     }
+
+    @GetMapping("/servicos")
+    public String exibirPaginaServicos() {
+        return "servicos"; // Procura por servicos.html (ou o nome do seu HTML)
+    }
+
+    @GetMapping("/dashboard")
+    public String exibirDashboard() {
+        return "dashboard";
+    }
 }

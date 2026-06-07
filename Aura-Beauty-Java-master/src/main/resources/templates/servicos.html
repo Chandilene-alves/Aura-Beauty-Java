@@ -3,26 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap"
-            rel="stylesheet"
-    />
 
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-    />
-    <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css"
-    /> >-->
 
-    <link rel="stylesheet" th:href="@{static/css/agendamentos.css}" />
-    <link rel="stylesheet" th:href="@{static/css/servico.css}" />
-    <link rel="stylesheet" th:href="@{/styles/index.css}" /> /
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/servicos.css}" />
+    <link rel="stylesheet" th:href="@{/css/modal-servicos.css}" />
+
+
 
     <title>Aura Beauty Lounge</title>
 </head>
@@ -34,15 +22,15 @@
     <nav>
         <ul>
             <li>
-                <a href="#"><img th:src="@{/assets/icons/home.svg}" alt="" /> Dashboard</a>
+                <a th:href="@{/dashboard}"><img th:src="@{/assets/icons/home.svg}" alt="" /> Dashboard</a>
             </li>
             <li>
-                <a th:href="@{/agendamentos.html}">
+                <a th:href="@{/agendamentos}">
                     <img th:src="@{/assets/icons/calendar.svg}" alt="" /> Agendamentos
                 </a>
             </li>
             <li>
-                <a class="active" href="#">
+                <a class="active" th:href="@{/servicos}">
                     <img th:src="@{/assets/icons/services.svg}" alt="" /> Serviços
                 </a>
             </li>
@@ -62,21 +50,34 @@
 
     <div class="user-menu">
         <div class="profile">
-            <img th:src="@{/assets/icons/profile.svg}" alt="Avatar" class="avatar" />
-            <span>admin</span>
             <img
+                    src="../static/assets/icons/profile.svg"
+                    th:src="@{/assets/icons/profile.svg}"
+                    alt="Avatar"
+                    class="avatar"
+            />
+            <span id="saudacao-header"></span>
+            <img
+                    src="../static/assets/icons/arrow-down.svg"
                     th:src="@{/assets/icons/arrow-down.svg}"
                     alt="Expandir"
                     class="chevron"
             />
+        </div>
+
+        <div class="logout-dropdown" id="logoutDropdown">
+            <a href="#" id="btnLogout" class="dropdown-item">
+                <img th:src="@{/assets/icons/logout.svg}" alt="">
+                Sair
+            </a>
         </div>
     </div>
 </header>
 <main class="content">
     <section class="appointments-section card">
         <div class="section-header">
-            <h2>Gerenciador de Serviços - Listas e Preços, Admin!</h2>
-            <button class="btn-new-appointment">
+            <h2>Gerenciador de Serviços </h2>
+            <button class="btn-new-appointment" onclick="abrirModal()">
                 <img th:src="@{/assets/icons/add.svg}" alt="" /> Novo Serviço
             </button>
         </div>
@@ -88,189 +89,57 @@
                 <th>Descrição curta</th>
                 <th>Duração</th>
                 <th>Preço</th>
-                <th>Ações</th>
+                <th class="btn-flex">Ações</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>Corte Feminino</td>
-                <td>Corte e Finalização p/ mulheres</td>
-                <td>1h</td>
-                <td>R$150,00</td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Corte e cor completa</td>
-                <td>Corte com Coloração Total</td>
-                <td>3h</td>
-                <td>R$380,00</td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Barba Desing</td>
-                <td>Design e manutenção de barba</td>
-                <td>45min</td>
-                <td>R$80,00</td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Manicure Simples</td>
-                <td>Limpeza e esmaltação comum</td>
-                <td>30min</td>
-                <td>R$50,00</td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Maquiagem Social</td>
-                <td>Maquiagem p/ eventos</td>
-                <td>1.5h</td>
-                <td>R$220,00</td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Hidratação Facial Deep</td>
-                <td>Limpeza e nutrição profunda</td>
-                <td>1h</td>
-                <td>R$180,00</td>
-                <td>
-                    <button class="btn-edit">
-                        <img th:src="@{/assets/icons/edit.svg}" alt="" />
-                    </button>
-                    <button class="btn-delete">
-                        <img th:src="@{/assets/icons/delete.svg}" alt="" />
-                    </button>
-                </td>
-            </tr>
+            <tbody id="tabela-servicos">
+
+
             </tbody>
         </table>
     </section>
 </main>
 
-<div id="modal-agendamento" class="modal-overlay">
+<div id="modal-servico" class="modal">
     <div class="modal-content">
-        <header class="modal-header">
-            <h2>Novo Agendamento</h2>
-            <button class="close-modal" id="btn-fechar">&times;</button>
-        </header>
+        <div class="modal-header">
+            <h2>Cadastrar Novo Serviço</h2>
+            <span class="close-button" onclick="fecharModal()">&times;</span>
+        </div>
 
-        <form id="form-agendamento">
-            <div class="modal-grid">
-                <div class="modal-col">
-                    <div class="input-group">
-                        <label for="input-cliente"><span class="step-number">1</span> Cliente</label>
-                        <input
-                                id="input-cliente"
-                                type="text"
-                                placeholder="Buscar ou cadastrar cliente..."
-                        />
-                    </div>
-                    <div class="input-group">
-                        <label for="select-servico"><span class="step-number">2</span> Serviço</label>
-                        <select id="select-servico">
-                            <option>Selecione o serviço</option>
-                            <option>Corte Feminino</option>
-                            <option>Hidratação Facial</option>
-                        </select>
-                    </div>
+        <form id="form-cadastro-servico">
+            <div class="form-group">
+                <label for="nome">Nome do Serviço *</label>
+                <input type="text" id="nome" required placeholder="Ex: Corte Feminino">
+            </div>
+
+            <div class="form-group">
+                <label for="descricaoCurta">Descrição Curta</label>
+                <input type="text" id="descricaoCurta" placeholder="Ex: Corte e finalização com escova">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="duracaoMinutos">Duração (em minutos) *</label>
+                    <input type="number" id="duracaoMinutos" required min="1" placeholder="Ex: 60">
                 </div>
 
-                <div class="modal-col">
-                    <div class="input-group">
-                        <label for="input-data-hora"><span class="step-number">3</span> Data e Hora</label>
-                        <input id="input-data-hora" type="date" />
-                        <div class="time-slots">
-                            <span class="time-tag">10:00</span>
-                            <span class="time-tag active">10:15</span>
-                            <span class="time-tag">10:30</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="calendario-custom"><span class="step-number">3</span> Data do Agendamento</label>
-                    <input
-                            type="text"
-                            id="calendario-custom"
-                            placeholder="Escolha a data..."
-                    />
-                </div>
-
-                <div class="modal-col summary-col">
-                    <div class="summary-box">
-                        <p><strong>Serviço:</strong> Corte Feminino - 1h</p>
-                        <p><strong>Profissional:</strong> Sofia</p>
-                        <hr />
-                        <div class="total-row">
-                            <span>Total</span>
-                            <span>R$ 150,00</span>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="preco">Preço (R$) *</label>
+                    <input type="number" id="preco" step="0.01" required min="0" placeholder="Ex: 150.00">
                 </div>
             </div>
 
-            <footer class="modal-footer">
-                <button type="button" class="btn-cancel" id="btn-cancelar">
-                    Cancelar
-                </button>
-                <button type="submit" class="btn-confirm">
-                    Confirmar Agendamento
-                </button>
-            </footer>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+                <button type="submit" class="btn-salvar">Salvar Serviço</button>
+            </div>
         </form>
     </div>
 </div>
 
-<script th:src="@{/scripts/modal-agendamento.js}"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        flatpickr("#calendario-custom", {
-            inline: true,
-            dateFormat: "d/m/Y",
-            minDate: "today",
-            locale: {
-                firstDayOfWeek: 1,
-            },
-        });
-    });
-</script>
+<script th:src="@{/js/modal-servico.js}"></script>
+<script th:src="@{/js/menu-drop-down.js}"></script>
+<script th:src="@{/js/servico.js}"></script>
 </body>
 </html>

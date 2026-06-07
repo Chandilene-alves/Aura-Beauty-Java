@@ -49,6 +49,9 @@ public class Agendamento {
         // Dentro de Agendamento.java
 
         public void atualizarInformacoes(DadosAtualizacaoAgendamento dados, Servico novoServico) {
+                if (dados.cliente() != null) {
+                        this.cliente = dados.cliente();
+                }
                 if (dados.profissional() != null) {
                         this.profissional = dados.profissional();
                 }

@@ -38,7 +38,14 @@ public class SecurityConfigurations {
                     req.requestMatchers(HttpMethod.POST, "/usuarios/api").permitAll();
 
                     req.requestMatchers(HttpMethod.GET, "/agendamentos").permitAll();
-                    req.requestMatchers("/api/agendamentos/**").authenticated();
+                    req.requestMatchers("/api/agendamentos", "/api/agendamentos/**").authenticated();
+
+                    req.requestMatchers(HttpMethod.GET, "/dashboard").permitAll();
+                    req.requestMatchers("/api/dashboard/**").authenticated();
+
+                    req.requestMatchers(HttpMethod.GET, "/servicos").permitAll();
+                    req.requestMatchers("/api/servicos", "/api/servicos/**").authenticated();
+
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

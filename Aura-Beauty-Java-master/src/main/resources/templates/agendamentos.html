@@ -7,6 +7,7 @@
 
     <title>Aura Beauty Lounge</title>
     <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/agendamentos.css}">
     <link rel="stylesheet" th:href="@{/css/modal-agendamentos.css}">
 </head>
@@ -18,16 +19,16 @@
     <nav>
         <ul>
             <li>
-                <a href="#"><img th:src="@{/assets/icons/home.svg}" alt="" /> Dashboard</a>
+                <a th:href="@{/dashboard}"><img th:src="@{/assets/icons/home.svg}" alt="" /> Dashboard</a>
             </li>
             <li>
-                <a href="#" class="active"
+                <a th:href="@{/agendamentos}" class="active"
                 ><img th:src="@{/assets/icons/calendar.svg}" alt="" /> Agendamentos</a
                 >
             </li>
 
             <li>
-                <a href="servicos.html"
+                <a th:href="@{/servicos}"
                 ><img th:src="@{/assets/icons/services.svg}" alt="" /> Serviços</a
                 >
             </li>
@@ -47,13 +48,26 @@
 
     <div class="user-menu">
         <div class="profile">
-            <img th:src="@{/assets/icons/profile.svg}" alt="Avatar" class="avatar" />
+            <img
+                    src="../static/assets/icons/profile.svg"
+                    th:src="@{/assets/icons/profile.svg}"
+                    alt="Avatar"
+                    class="avatar"
+            />
             <span id="saudacao-header"></span>
             <img
+                    src="../static/assets/icons/arrow-down.svg"
                     th:src="@{/assets/icons/arrow-down.svg}"
                     alt="Expandir"
                     class="chevron"
             />
+        </div>
+
+        <div class="logout-dropdown" id="logoutDropdown">
+            <a href="#" id="btnLogout" class="dropdown-item">
+                <img th:src="@{/assets/icons/logout.svg}" alt="">
+                Sair
+            </a>
         </div>
     </div>
 </header>
@@ -110,7 +124,7 @@
                             <img th:src="@{/assets/icons/edit.svg}" alt="" />
                         </button>
                         <button class="btn-delete">
-                            <img th:src="@{/assets/icons/delete.svg}" alt="" />
+                            <img th:src="@{/assets/icons/block.svg}" alt="" />
                         </button>
                     </td>
                 </tr>
@@ -158,9 +172,9 @@
                         <input type="date" id="modal-data" required />
                     </div>
                     <div>
-                        <label> Horários</label>
+                        <label> Horários disponíveis</label>
                         <ul id="modal-horarios">
-                            <li>9:00</li>
+                            <li>09:00</li>
                             <li>10:00</li>
                             <li>11:00</li>
                             <li>12:00</li>
@@ -205,6 +219,7 @@
 </div>
 
 <script th:src="@{/js/agendamentos.js}"></script>
+<script th:src="@{/js/menu-drop-down.js}"></script>
 <script th:src="@{/js/modal-agendamento.js}"></script>
 </body>
 </html>

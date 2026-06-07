@@ -73,6 +73,7 @@
 }
 .input-group {
   margin-bottom: 20px;
+  text-transform: capitalize;
 }
 
 .input-group label {
@@ -125,6 +126,21 @@
 .modal-col ul li:hover {
   background: var(--aura-teal);
   color: white;
+}
+
+.modal-col ul li.selected{
+  background-color: var(--aura-teal);
+  color: white;
+}
+.modal-col ul li.disabled ,
+.modal-col ul li.disabled:hover{
+  background-color: #f5f5f5 !important;
+  color: #a0a0a0 !important;
+  border-color: #e0e0e0 !important;
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  text-decoration: line-through;
 }
 
 .summary-box {
@@ -209,3 +225,4 @@
     transform: scale(1);
   }
 }
+

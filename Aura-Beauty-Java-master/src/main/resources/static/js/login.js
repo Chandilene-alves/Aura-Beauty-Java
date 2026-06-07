@@ -29,7 +29,7 @@ try {
         localStorage.setItem('token', token.token)
        localStorage.setItem("nomeUsuario", token.nome)
 
-        window.location.href= "/agendamentos"
+        window.location.href= "/dashboard"
     }else if(response.status === 403 || response.status === 401){
 alert("Email ou senha incorretos")
     }else{

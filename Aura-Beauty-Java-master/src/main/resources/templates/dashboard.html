@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Beauty Lounge</title>
+  <link
+          rel="stylesheet"
+
+          th:href="@{/css/global.css}"
+  />
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">
+    <img
+            src="../static/assets/logo.svg"
+            th:src="@{/assets/logo.svg}"
+            alt="Aura Beauty Lounge"
+    />
+  </div>
+  <nav>
+    <ul>
+      <li>
+        <a th:href="@{/dashboard}" class="active"
+        ><img
+                src="../static/assets/icons/home.svg"
+                th:src="@{/assets/icons/home.svg}"
+                alt=""
+        />
+          Dashboard</a
+        >
+      </li>
+      <li>
+        <a th:href="@{/agendamentos}"
+        ><img
+                src="../static/assets/icons/calendar.svg"
+                th:src="@{/assets/icons/calendar.svg}"
+                alt=""
+        />
+          Agendamentos</a
+        >
+      </li>
+
+      <li>
+        <a th:href="@{/servicos}"
+        ><img
+                src="../static/assets/icons/services.svg"
+                th:src="@{/assets/icons/services.svg}"
+                alt=""
+        />
+          Serviços</a
+        >
+      </li>
+      <li>
+        <a href="#"
+        ><img
+                src="../static/assets/icons/analytics.svg"
+                th:src="@{/assets/icons/analytics.svg}"
+                alt=""
+        />
+          Relatórios</a
+        >
+      </li>
+    </ul>
+  </nav>
+</aside>
+
+<header class="main-header">
+  <div class="page-title">
+    <h1>Dashboard</h1>
+  </div>
+
+  <div class="user-menu">
+    <div class="profile">
+      <img
+              src="../static/assets/icons/profile.svg"
+              th:src="@{/assets/icons/profile.svg}"
+              alt="Avatar"
+              class="avatar"
+      />
+      <span id="saudacao-header"></span>
+      <img
+              src="../static/assets/icons/arrow-down.svg"
+              th:src="@{/assets/icons/arrow-down.svg}"
+              alt="Expandir"
+              class="chevron"
+      />
+    </div>
+
+    <div class="logout-dropdown" id="logoutDropdown">
+      <a href="#" id="btnLogout" class="dropdown-item">
+        <img th:src="@{/assets/icons/logout.svg}" alt="">
+        Sair
+      </a>
+    </div>
+  </div>
+</header>
+<main class="content">
+  <section class="dashboard-section card">
+    <div class="section-header">
+      <h2 id="saudacao-banner"></h2>
+    </div>
+    <div class="dashboard-row">
+      <article class="dashboard-card">
+        <div class="dashboard-card-header">
+          <img
+                  src="../static/assets/icons/calendar-white.svg"
+                  th:src="@{/assets/icons/calendar-white.svg}"
+                  alt=""
+          />
+          <h3>Agendamentos Hoje</h3>
+        </div>
+        <div class="dashboard-card-body">
+          <h4
+                  id="appointments-quantity"
+                  class="dashboard-card-body-content"
+          ></h4>
+          <p class="dashboard-card-body-description">Clientes esperados</p>
+        </div>
+      </article>
+      <article class="dashboard-card">
+        <div class="dashboard-card-header">
+          <img
+                  src="../static/assets/icons/money-white.svg"
+                  th:src="@{/assets/icons/money-white.svg}"
+                  alt=""
+          />
+          <h3>Total em Vendas</h3>
+        </div>
+        <div class="dashboard-card-body">
+          <h4 id="total-sales" class="dashboard-card-body-content"></h4>
+          <p class="dashboard-card-body-description">
+            Valor acumulado do dia
+          </p>
+        </div>
+      </article>
+    </div>
+    <div class="dashboard-row">
+      <article class="dashboard-card">
+        <div class="dashboard-card-header">
+          <img
+                  src="../static/assets/icons/chart-white.svg"
+                  th:src="@{/assets/icons/chart-white.svg}"
+                  alt=""
+          />
+          <h3>Serviços Mais Procurados</h3>
+        </div>
+        <div class="dashboard-card-body">
+          <canvas id="chart"></canvas>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:src="@{/js/menu-drop-down.js}"></script>
+<script
+        src="../static/js/dashboard.js"
+        th:src="@{/js/dashboard.js}"
+></script>
+</body>
+</html>
