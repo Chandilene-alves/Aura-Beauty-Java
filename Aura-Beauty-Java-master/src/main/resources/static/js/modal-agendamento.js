@@ -40,8 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
             .map(apt => apt.data?.split("T")[1]?.substring(0, 5))
             .filter(hora => hora);
 
+        // Primeiro mapeamento: Trata o que vem ocupado do Banco de Dados
         listaHorarios.forEach(li => {
-          const horaTextoLimpo = li.textContent.replace(" (Ocupado)", "").trim();
+          const horaTextoLimpo = li.textContent.replace(" (Ocupado)", "").replace(" (Passado)", "").trim();
 
           if (horasOcupadas.includes(horaTextoLimpo)) {
             li.classList.add("disabled");
@@ -59,6 +60,36 @@ document.addEventListener("DOMContentLoaded", () => {
             li.textContent = horaTextoLimpo;
           }
         });
+
+        // 🌟 [REGRA 3]: Bloqueia horários passados se a data selecionada for HOJE
+        const agora = new Date();
+        const ano = agora.getFullYear();
+        const mes = String(agora.getMonth() + 1).padStart(2, '0');
+        const dia = String(agora.getDate()).padStart(2, '0');
+        const dataHoje = `${ano}-${mes}-${dia}`;
+
+        if (dataSelecionada === dataHoje) {
+          const horaAtual = agora.getHours();
+          const minutoAtual = agora.getMinutes();
+
+          listaHorarios.forEach(li => {
+            const horaTextoLimpo = li.textContent.replace(" (Ocupado)", "").trim();
+            const [horaOpcao, minutoOpcao] = horaTextoLimpo.split(':').map(Number);
+
+            // Se o horário da lista for menor ou igual ao horário atual do relógio
+            if (horaOpcao < horaAtual || (horaOpcao === horaAtual && minutoOpcao <= minutoAtual)) {
+              li.classList.add("disabled");
+              li.textContent = `${horaTextoLimpo} (Passado)`; // Tag visual opcional
+
+              // Se o horário estiver selecionado mas já passou, remove a seleção
+              if (li.classList.contains("selected")) {
+                li.classList.remove("selected");
+                horarioSelecionado = "";
+                atualizarResumo();
+              }
+            }
+          });
+        }
       }
     } catch (error) {
       console.error("Erro ao buscar horários ocupados:", error);
@@ -77,8 +108,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (btnNovo) {
     btnNovo.addEventListener("click", () => {
+      const agora = new Date();
+      const ano = agora.getFullYear();
+      const mes = String(agora.getMonth() + 1).padStart(2, '0');
+      const dia = String(agora.getDate()).padStart(2, '0');
+      const dataHoje = `${ano}-${mes}-${dia}`;
+
+      inputData.value = dataHoje;
+      inputData.min = dataHoje
+
+
       modal.style.display = "flex";
       carregarServicosNoSelect();
+      buscarHorariosOcupados();
     });
   }
 
@@ -119,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   listaHorarios.forEach(li => {
     li.addEventListener("click", () => {
-      // Proteção extra via JS caso o usuário clique em um item desabilitado
+
       if (li.classList.contains("disabled")) return;
 
       listaHorarios.forEach(item => item.classList.remove("selected"));
@@ -149,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
   inputCliente.addEventListener("input", atualizarResumo);
   inputProfissional.addEventListener("input", atualizarResumo);
 
-  // 🌟 MODIFICADO: Quando mudar a data, atualiza o resumo E busca os horários ocupados
+
   inputData.addEventListener("change", () => {
     atualizarResumo();
     buscarHorariosOcupados();
@@ -165,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resumoTotal.textContent = "R$ 0,00";
     horarioSelecionado = "";
 
-    // 🌟 MODIFICADO: Reseta classes e textos limpos ao fechar a modal
+
     listaHorarios.forEach(item => {
       item.classList.remove("selected", "disabled");
       item.textContent = item.textContent.replace(" (Ocupado)", "").trim();
@@ -194,11 +236,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const dataHora = new Date(agendamento.dataHora || agendamento.data);
         inputData.value = dataHora.toISOString().split('T')[0];
+        inputData.min = "";
 
-        // 🌟 NOVO: Busca e renderiza os bloqueios do dia da edição ANTES de marcar o selecionado
+
         await buscarHorariosOcupados();
 
-        // Processa o horário para marcar na lista <ul> (Como já está em 09:00 no HTML, bate direto!)
+
         let horaInput = dataHora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 
         horarioSelecionado = "";

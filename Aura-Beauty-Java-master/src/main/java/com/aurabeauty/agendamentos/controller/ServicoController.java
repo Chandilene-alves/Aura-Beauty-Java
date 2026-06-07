@@ -32,6 +32,7 @@ public class ServicoController {
         return ResponseEntity.ok("Serviço '" + dados.nome() + "' cadastrado com sucesso!");
     }
 
+
     @GetMapping
     @Transactional
     public ResponseEntity<List<DadosListagemServico>> listar(){
@@ -41,7 +42,16 @@ public class ServicoController {
         return ResponseEntity.ok(servicos);
     }
 
-    @PutMapping
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosListagemServico> detalhar(@PathVariable Long id) {
+
+        var servico = repository.getReferenceById(id);
+
+
+        return ResponseEntity.ok(new DadosListagemServico(servico));
+    }
+
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoServico dados){
         var servico = repository.getReferenceById(dados.id());

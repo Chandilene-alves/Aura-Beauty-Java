@@ -44,7 +44,7 @@ public class SecurityConfigurations {
                     req.requestMatchers("/api/dashboard/**").authenticated();
 
                     req.requestMatchers(HttpMethod.GET, "/servicos").permitAll();
-                    req.requestMatchers("/api/servicos", "/api/servicos/**").authenticated();
+                    req.requestMatchers("/api/servicos/", "/api/servicos/**").authenticated();
 
                     req.anyRequest().authenticated();
                 })

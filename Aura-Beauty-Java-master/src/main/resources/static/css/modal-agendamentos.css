@@ -226,3 +226,10 @@
   }
 }
 
+.horario-bloqueado {
+  background-color: #f0f0f0 !important;
+  color: #ccc !important;
+  cursor: not-allowed !important;
+  text-decoration: line-through; /* Opcional: risca o horário */
+}
+
