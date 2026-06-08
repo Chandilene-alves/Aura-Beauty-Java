@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&amp;display=swap" rel="stylesheet">
   <title>Aura Beauty Lounge</title>
   <link
           rel="stylesheet"
@@ -55,7 +58,7 @@
         >
       </li>
       <li>
-        <a href="#"
+        <a th:href="@{/relatorios}"
         ><img
                 src="../static/assets/icons/analytics.svg"
                 th:src="@{/assets/icons/analytics.svg}"
@@ -102,6 +105,12 @@
   <section class="dashboard-section card">
     <div class="section-header">
       <h2 id="saudacao-banner"></h2>
+      <div class="dashboard-filters">
+        <span class="filter-label">Filtrar por:</span>
+        <button class="btn-pill active" data-periodo="hoje">Hoje</button>
+        <button class="btn-pill" data-periodo="semana">Semana</button>
+        <button class="btn-pill" data-periodo="mes">Mês</button>
+      </div>
     </div>
     <div class="dashboard-row">
       <article class="dashboard-card">
@@ -111,7 +120,7 @@
                   th:src="@{/assets/icons/calendar-white.svg}"
                   alt=""
           />
-          <h3>Agendamentos Hoje</h3>
+          <h3 id="appointments-title">Agendamentos Hoje</h3>
         </div>
         <div class="dashboard-card-body">
           <h4

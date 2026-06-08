@@ -1,5 +1,3 @@
-
-
 body {
     display: grid;
     grid-template-columns: 250px 1fr;
@@ -75,7 +73,48 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
     margin-bottom: 20px;
+}
+
+.dashboard-filters {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-label {
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 700;
+}
+
+
+.btn-pill {
+    background-color: #f0f0f0;
+    color: #444;
+    border: 1px solid #ddd;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    transition: all 0.3s ease;
+}
+
+
+.btn-pill:hover {
+    background-color: #e2e2e2;
+}
+
+
+.btn-pill.active {
+    background-color: #1b4342;
+    color: #ffffff;
+    border-color: #1b4342;
+    box-shadow: 0 2px 8px rgba(27, 67, 66, 0.3);
 }
 
 .card h2 {
@@ -92,7 +131,8 @@ main {
     width: 100%;
 }
 
-/* Elementos exclusivos do Dashboard */
+
+
 .dashboard-row {
     display: flex;
     gap: 1.25rem;

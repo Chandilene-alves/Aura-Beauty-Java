@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura Beauty Lounge - Criar Conta</title>
 
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
     <link rel="stylesheet" th:href="@{/css/criarconta.css}">
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -43,13 +45,13 @@
             <div class="input-group password-container">
                 <label th:for="senha">Senha</label>
                 <input type="password" id="senha" name="senha" placeholder="Senha" required="required">
-                <span class="toggle-password">👁️</span>
+                <img th:src="@{/assets/icons/visibility_off.svg}" class="toggle-password" id="btn-senha" alt="Mostrar senha">
             </div>
 
             <div class="input-group password-container">
                 <label th:for="confirme-senha">Confirme sua Senha</label>
                 <input type="password" id="confirme-senha" name="confirmarSenha" placeholder="Confirme sua Senha" required="required">
-                <span class="toggle-password">👁️</span>
+                <img th:src="@{/assets/icons/visibility_off.svg}" class="toggle-password" id="btn-confirmar" alt="Mostrar senha">
             </div>
 
             <button type="submit" class="btn-submit">CRIAR CONTA</button>

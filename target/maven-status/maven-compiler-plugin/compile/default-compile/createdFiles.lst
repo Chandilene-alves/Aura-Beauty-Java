@@ -1,0 +1,12 @@
+com\aurabeauty\agendamentos\dto\DadosErroValidacao.class
+com\aurabeauty\agendamentos\repository\UsuarioRepository.class
+com\aurabeauty\agendamentos\AuraBeautyLoungeApplication.class
+com\aurabeauty\agendamentos\infra\security\SecurityConfigurations.class
+com\aurabeauty\agendamentos\controller\agendamentosController.class
+com\aurabeauty\agendamentos\infra\exception\TratadorDeErros.class
+com\aurabeauty\agendamentos\service\AutenticacaoService.class
+com\aurabeauty\agendamentos\model\Usuario.class
+com\aurabeauty\agendamentos\service\TokenService.class
+com\aurabeauty\agendamentos\controller\LoginController.class
+com\aurabeauty\agendamentos\dto\DadosAutenticacao.class
+com\aurabeauty\agendamentos\dto\DadosTokenJWT.class

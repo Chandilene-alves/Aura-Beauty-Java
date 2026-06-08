@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
-
-
     const nomeUsuario = localStorage.getItem("nomeUsuario") || "Colaborador";
     const primeiroNome = nomeUsuario.split(" ")[0];
 
@@ -10,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/login";
         return;
     }
-
 
     const horaAtual = new Date().getHours();
     let saudacao = "";
@@ -41,42 +38,102 @@ document.addEventListener("DOMContentLoaded", () => {
         elementoDia.textContent = dia;
     }
 
+    // 🌟 LOGICA DAS PÍLULAS DE FILTRO
+    const pilulas = document.querySelectorAll(".btn-pill");
+    pilulas.forEach(pilula => {
+        pilula.addEventListener("click", (e) => {
+            // Remove a classe active de todas as pílulas
+            pilulas.forEach(p => p.classList.remove("active"));
+
+            // Adiciona a classe active na pílula clicada
+            e.currentTarget.classList.add("active");
+
+            // Atualiza os textos contextuais dos cards
+            atualizarLabelsCards(e.currentTarget.getAttribute("data-periodo"));
+
+            // Recarrega todos os dados com o novo filtro aplicado
+            loadAllData();
+        });
+    });
+
+    loadAllData();
 });
 
 const API_URL = "http://localhost:8080";
-
 const ctx = document.getElementById("chart");
+let meuGraficoInstance = null;
 
 const brandColors = [
-    "#0d2b2a", // teal muito escuro
-    "#1b4342", // --aura-teal
-    "#2a5c5a", // --aura-teal-light
-    "#3d7a77", // teal médio
-    "#4f9490", // teal claro
-    "#6aafab", // teal suave
-    "#7a5a20", // bronze escuro
-    "#9a7535", // ouro escuro
-    "#c5a059", // --aura-gold
-    "#cba547", // --status-pending
-    "#d4b47a", // ouro claro
-    "#e8c88a", // ouro suave
-    "#2d7a4f", // verde escuro
-    "#4a9e6e", // verde médio
-    "#81c784", // --status-confirmed
-    "#b5ddb7", // verde claro
-    "#a89000", // amarelo escuro
-    "#d4b800", // amarelo médio
-    "#f2d960", // --status-process
-    "#f7e898", // amarelo claro
+    "#0d2b2a", "#1b4342", "#2a5c5a", "#3d7a77", "#4f9490", "#6aafab",
+    "#7a5a20", "#9a7535", "#c5a059", "#cba547", "#d4b47a", "#e8c88a",
+    "#2d7a4f", "#4a9e6e", "#81c784", "#b5ddb7", "#a89000", "#d4b800",
+    "#f2d960", "#f7e898"
 ];
+
+// 🌟 Altera os textos dinamicamente baseado no filtro ativo
+const atualizarLabelsCards = (opcao) => {
+    const txtTitulo = document.getElementById("appointments-title");
+    const txtDescricaoVendas = document.getElementById("sales-description");
+
+    if (opcao === "hoje") {
+        if (txtTitulo) txtTitulo.textContent = "Agendamentos Hoje";
+        if (txtDescricaoVendas) txtDescricaoVendas.textContent = "Valor acumulado do dia";
+    } else if (opcao === "semana") {
+        if (txtTitulo) txtTitulo.textContent = "Agendamentos na Semana";
+        if (txtDescricaoVendas) txtDescricaoVendas.textContent = "Valor acumulado na semana";
+    } else if (opcao === "mes") {
+        if (txtTitulo) txtTitulo.textContent = "Agendamentos no Mês";
+        if (txtDescricaoVendas) txtDescricaoVendas.textContent = "Valor acumulado no mês";
+    }
+};
+
+const formatarDataBR = (data) => {
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = String(data.getDate()).padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
+};
+
+const calcularIntervaloDatas = (opcao) => {
+    const hoje = new Date();
+    let inicio = formatarDataBR(hoje);
+    let fim = inicio;
+
+    if (opcao === "semana") {
+        const diaSemana = hoje.getDay();
+        const diferencaSegunda = diaSemana === 0 ? -6 : 1 - diaSemana;
+
+        const segundaFeira = new Date(hoje);
+        segundaFeira.setDate(hoje.getDate() + diferencaSegunda);
+
+        const domingo = new Date(segundaFeira);
+        domingo.setDate(segundaFeira.getDate() + 6);
+
+        inicio = formatarDataBR(segundaFeira);
+        fim = formatarDataBR(domingo);
+    } else if (opcao === "mes") {
+        const primeiroDia = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+        const ultimoDia = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
+
+        inicio = formatarDataBR(primeiroDia);
+        fim = formatarDataBR(ultimoDia);
+    }
+
+    return { inicio, fim };
+};
 
 const loadAppointments = async () => {
     try {
         const token = localStorage.getItem("token");
-        const date = new Date().toISOString().split("T")[0]; // Formato YYYY-MM-DD
+
+        // 🌟 Captura qual botão pílula está com a classe .active no momento
+        const activePill = document.querySelector(".btn-pill.active");
+        const filtro = activePill ? activePill.getAttribute("data-periodo") : "hoje";
+
+        const { inicio, fim } = calcularIntervaloDatas(filtro);
 
         const response = await fetch(
-            `${API_URL}/api/agendamentos/por-data?data=${date}`, // alterar pela data "date"
+            `${API_URL}/api/agendamentos/periodo?inicio=${inicio}&fim=${fim}`,
             {
                 method: "GET",
                 headers: {
@@ -91,12 +148,9 @@ const loadAppointments = async () => {
         }
 
         const data = await response.json();
-        const filteredData = data.filter((apt) => apt.status === "AGENDADO");
-
-        return filteredData;
+        return data.filter((apt) => apt.status === "AGENDADO");
     } catch (error) {
         console.error("Error loading appointments:", error);
-
         return [];
     }
 };
@@ -104,7 +158,6 @@ const loadAppointments = async () => {
 const loadServices = async () => {
     try {
         const token = localStorage.getItem("token");
-
         const response = await fetch(`${API_URL}/api/servicos`, {
             method: "GET",
             headers: {
@@ -117,12 +170,9 @@ const loadServices = async () => {
             throw new Error("Failed to fetch services");
         }
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     } catch (error) {
         console.error("Error loading services:", error);
-
         return [];
     }
 };
@@ -130,16 +180,21 @@ const loadServices = async () => {
 const fillAppointmentsQuantity = (appointments) => {
     const quantity = appointments.length;
     const element = document.querySelector("#appointments-quantity");
-    element.textContent = quantity;
+    if (element) element.textContent = quantity;
 };
 
 const fillTotalSales = (appointments) => {
     const total = appointments.reduce((sum, appt) => sum + appt.valor, 0);
     const element = document.querySelector("#total-sales");
-    element.textContent = `R$ ${total.toFixed(2)}`;
+    if (element) {
+        element.textContent = total.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+    }
 };
 
-createChart = (services, appointments) => {
+const createChart = (services, appointments) => {
     const serviceNames = [];
     const serviceCounts = [];
 
@@ -156,7 +211,13 @@ createChart = (services, appointments) => {
         }
     }
 
-    new Chart(ctx, {
+    if (meuGraficoInstance) {
+        meuGraficoInstance.destroy();
+    }
+
+    if (!ctx) return;
+
+    meuGraficoInstance = new Chart(ctx, {
         type: "pie",
         data: {
             labels: serviceNames,
@@ -180,7 +241,7 @@ createChart = (services, appointments) => {
                             const total = context.dataset.data.reduce((a, b) => a + b, 0);
                             const value = context.parsed;
                             const percentage = ((value / total) * 100).toFixed(1);
-                            return ` ${percentage}%`;
+                            return ` ${context.label}: ${percentage}% (${value})`;
                         },
                     },
                 },
@@ -197,5 +258,3 @@ const loadAllData = async () => {
     fillTotalSales(appointments);
     createChart(services, appointments);
 };
-
-loadAllData();

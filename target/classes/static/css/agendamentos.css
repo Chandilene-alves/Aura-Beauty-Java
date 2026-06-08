@@ -1,0 +1,240 @@
+body {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  margin: 0;
+}
+
+aside {
+  grid-row: 1 / 3;
+  background-color: var(--aura-white);
+  height: 100vh;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+}
+
+.logo img {
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 2rem;
+  height: auto;
+}
+aside nav ul {
+  list-style: none;
+}
+
+aside nav ul li {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+aside nav ul li a {
+  display: flex;
+  align-items: center;
+  gap: 12px; 
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem; 
+  color: var(--aura-teal);
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+aside nav ul li a:hover,
+aside nav ul li a.active {
+  background-color: var(--aura-teal);
+  color: var(--aura-white);
+}
+
+aside nav ul li a:hover img,
+aside nav ul li a.active img {
+  filter: brightness(0) invert(1);
+}
+
+main {
+  background-color: var(--aura-cream-bg);
+  padding: 40px;
+ 
+  background-image: url("../assets/bg.svg");
+  background-size: cover;
+  background-attachment: fixed;
+  margin-top: -80px;
+    padding-top: 100px;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+z-index: 3;
+ background-color: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  grid-column: 2;
+  height: 60px;
+}
+
+.page-title h1 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: var(--aura-teal); 
+  margin: 0;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.profile:hover {
+  background-color: rgba(27, 67, 66, 0.322); 
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--aura-gold); /
+}
+
+.chevron {
+  width: 22px;
+  margin-left: 5px;
+  opacity: 0.5;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;            
+    margin-bottom: 20px;          
+}
+
+.btn-new-appointment {
+    background-color: var(--aura-gold);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-new-appointment:hover {
+    background-color: var(--aura-teal); 
+}
+
+
+.btn-new-appointment img {
+    width: 16px;
+    filter: brightness(0) invert(1);
+}
+
+
+.card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--aura-teal);
+}
+
+.card {
+    background-color: var(--bg-card-table); 
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+
+}
+
+.card h3 {
+    font-size: 1.1rem;
+    color: var(--aura-teal);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+table {
+    background-color: var(--aura-white);
+    width: 100%;
+    border-collapse: separate;
+    padding: 8px;
+    border-radius: 15px;
+ 
+}
+
+thead th {
+    background-color: var(--head-table); 
+    padding: 12px 15px;
+    text-align: left;
+    color: var(--aura-teal);
+    font-weight: 600;
+}
+
+/* Arredondar cantos do cabeçalho */
+thead th:first-child { border-radius: 8px 0 0 8px; }
+thead th:last-child { border-radius: 0 8px 8px 0; }
+
+tbody td {
+    padding: 15px;
+    background-color:var(--linhas-table); 
+    border-radius: 10px;
+    border: 1px solid var(--border-linhas-table);
+}
+
+/* Estilização das Pílulas de Status */
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+  
+    font-weight: 500;
+}
+
+.status.confirmed {
+    background-color: var(--status-confirmed);
+}
+
+.status.pending {
+    background-color: var(--status-pending);
+}
+.status.process {
+    background-color: var(--status-process);
+}
+
+/* Botões de Ação */
+.btn-edit{
+    margin-right: 15px;
+}
+.btn-edit, .btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.2s;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}

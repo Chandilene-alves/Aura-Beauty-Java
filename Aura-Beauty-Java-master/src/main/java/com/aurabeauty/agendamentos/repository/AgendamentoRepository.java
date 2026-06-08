@@ -1,4 +1,5 @@
 package com.aurabeauty.agendamentos.repository;
+import com.aurabeauty.agendamentos.model.StatusAgendamento;
 
 import com.aurabeauty.agendamentos.model.Agendamento;
 import com.aurabeauty.agendamentos.model.StatusAgendamento;
@@ -11,11 +12,13 @@ import java.util.List;
 @Repository
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
 
-    List<Agendamento> findAllByDataHoraBetween(LocalDateTime inicio, LocalDateTime fim);
+    List<Agendamento> findAllByDataHoraBetweenOrderByDataHoraAsc(LocalDateTime inicio, LocalDateTime fim);
 
     List<Agendamento> findAllByStatusNot(StatusAgendamento status);
 
-    boolean existsByDataHora(LocalDateTime dataHora);
+    List<Agendamento> findAllByOrderByDataHoraAsc();
 
-    boolean existsByDataHoraAndIdNot(LocalDateTime dataHora, Long id);
+    boolean existsByDataHoraAndStatusNot(LocalDateTime dataHora, StatusAgendamento status);
+
+    boolean existsByDataHoraAndIdNotAndStatusNot(LocalDateTime dataHora, Long id, StatusAgendamento status);
 }

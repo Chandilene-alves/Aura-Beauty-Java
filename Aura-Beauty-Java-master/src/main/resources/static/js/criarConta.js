@@ -5,6 +5,19 @@ const cargo = document.querySelector("#cargo")
 const senha = document.querySelector("#senha")
 const confirmeSenha = document.querySelector("#confirme-senha")
 
+document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function() {
+        const input = this.previousElementSibling; // Pega o input que vem antes da imagem
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.src = '/assets/icons/visibility.svg'; // Caminho para o olho aberto
+        } else {
+            input.type = 'password';
+            this.src = '/assets/icons/visibility_off.svg'; // Caminho para o olho fechado
+        }
+    });
+});
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault()
 

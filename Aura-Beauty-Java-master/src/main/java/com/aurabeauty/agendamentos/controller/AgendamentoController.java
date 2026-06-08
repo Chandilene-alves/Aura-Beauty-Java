@@ -5,6 +5,7 @@ import com.aurabeauty.agendamentos.dto.DadosAtualizacaoAgendamento;
 import com.aurabeauty.agendamentos.dto.DadosDetalhamentoAgendamento;
 import com.aurabeauty.agendamentos.model.Agendamento;
 import com.aurabeauty.agendamentos.model.Servico;
+import com.aurabeauty.agendamentos.model.StatusAgendamento;
 import com.aurabeauty.agendamentos.repository.AgendamentoRepository;
 import com.aurabeauty.agendamentos.repository.ServicoRepository;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ public class AgendamentoController {
     @PostMapping
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamento dados) {
-        if (repository.existsByDataHora(dados.data())) {
+        if (repository.existsByDataHoraAndStatusNot(dados.data(), StatusAgendamento.CANCELADO)) {
             return ResponseEntity.badRequest()
                     .body("Já existe um serviço agendamento para este dia e horário!");
         }
@@ -46,7 +47,7 @@ public class AgendamentoController {
 
     @GetMapping
     public ResponseEntity<List<DadosDetalhamentoAgendamento>> listar() {
-        var lista = repository.findAll().stream()
+        var lista = repository.findAllByOrderByDataHoraAsc().stream()
                 .map(DadosDetalhamentoAgendamento::new)
                 .toList();
 
@@ -61,7 +62,7 @@ public class AgendamentoController {
         var inicioDia = data.atStartOfDay();
         var fimDia = data.atTime(LocalTime.MAX);
 
-        var lista = repository.findAllByDataHoraBetween(inicioDia, fimDia).stream()
+        var lista = repository.findAllByDataHoraBetweenOrderByDataHoraAsc(inicioDia, fimDia).stream()
                 .map(DadosDetalhamentoAgendamento::new)
                 .toList();
 
@@ -80,7 +81,7 @@ public class AgendamentoController {
         var inicioPeriodo = inicio.atStartOfDay();
         var fimPeriodo = fim.atTime(LocalTime.MAX);
 
-        var lista = repository.findAllByDataHoraBetween(inicioPeriodo, fimPeriodo).stream()
+        var lista = repository.findAllByDataHoraBetweenOrderByDataHoraAsc(inicioPeriodo, fimPeriodo).stream()
                 .map(DadosDetalhamentoAgendamento::new)
                 .toList();
 
@@ -98,7 +99,7 @@ public class AgendamentoController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoAgendamento dados){
-        if (repository.existsByDataHoraAndIdNot(dados.data(), dados.id())) {
+        if (repository.existsByDataHoraAndIdNotAndStatusNot(dados.data(), dados.id(), StatusAgendamento.CANCELADO)) {
             return ResponseEntity.badRequest()
                     .body("Não foi possível atualizar: Este dia e horário já estão reservados!");
         }

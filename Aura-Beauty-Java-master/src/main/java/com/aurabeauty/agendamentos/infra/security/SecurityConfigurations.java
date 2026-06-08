@@ -46,6 +46,8 @@ public class SecurityConfigurations {
                     req.requestMatchers(HttpMethod.GET, "/servicos").permitAll();
                     req.requestMatchers("/api/servicos/", "/api/servicos/**").authenticated();
 
+                    req.requestMatchers(HttpMethod.GET, "/relatorios").permitAll();
+
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

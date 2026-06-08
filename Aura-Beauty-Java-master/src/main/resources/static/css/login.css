@@ -88,6 +88,13 @@ input {
     margin: 15px 0;
 }
 
+.row a{
+    color: black;
+}
+
+.row a:hover{
+    color: #1b4342;
+}
 
 .login {
     width: 100%;
@@ -103,6 +110,14 @@ input {
 .signup {
     font-size: 13px;
     margin-top: 15px;
+
+}
+.signup a{
+color: #1b4342;
+}
+
+.signup a:hover{
+font-weight: 600;
 }
 
 hr {
@@ -125,4 +140,23 @@ hr {
     font-size: 11px;
     color: #777;
     display: block;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    bottom: 8px;
+    width: 20px;
+    height: auto;
+    cursor: pointer;
 }

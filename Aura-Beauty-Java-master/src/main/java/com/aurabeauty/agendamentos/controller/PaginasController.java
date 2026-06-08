@@ -11,11 +11,16 @@ public class PaginasController {
 
     @GetMapping("/servicos")
     public String exibirPaginaServicos() {
-        return "servicos"; // Procura por servicos.html (ou o nome do seu HTML)
+        return "servicos";
     }
 
     @GetMapping("/dashboard")
     public String exibirDashboard() {
         return "dashboard";
+    }
+
+    @GetMapping("/relatorios")
+    public String relatorios() {
+        return "relatorios";
     }
 }

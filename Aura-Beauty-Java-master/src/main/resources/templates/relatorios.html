@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&amp;display=swap" rel="stylesheet">
+
+    <title>Aura Beauty Lounge - Relatórios</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/relatorios.css}">
+
+
+</head>
+<body>
+<aside class="sidebar">
+    <div class="logo">
+        <img th:src="@{/assets/logo.svg}" alt="Aura Beauty Lounge" />
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a th:href="@{/dashboard}"><img th:src="@{/assets/icons/home.svg}" alt="" /> Dashboard</a>
+            </li>
+            <li>
+                <a th:href="@{/agendamentos}"><img th:src="@{/assets/icons/calendar.svg}" alt="" /> Agendamentos</a>
+            </li>
+            <li>
+                <a th:href="@{/servicos}"><img th:src="@{/assets/icons/services.svg}" alt="" /> Serviços</a>
+            </li>
+            <li>
+                <a th:href="@{/relatorios}" class="active"><img th:src="@{/assets/icons/analytics.svg}" alt="" /> Relatórios</a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<header class="main-header">
+    <div class="page-title">
+        <h1>Relatórios</h1>
+    </div>
+
+    <div class="user-menu">
+        <div class="profile">
+            <img src="../static/assets/icons/profile.svg" th:src="@{/assets/icons/profile.svg}" alt="Avatar" class="avatar" />
+            <span id="saudacao-header">Colaborador</span>
+            <img src="../static/assets/icons/arrow-down.svg" th:src="@{/assets/icons/arrow-down.svg}" alt="Expandir" class="chevron" />
+        </div>
+
+        <div class="logout-dropdown" id="logoutDropdown">
+            <a href="#" id="btnLogout" class="dropdown-item">
+                <img th:src="@{/assets/icons/logout.svg}" alt="">
+                Sair
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="content">
+    <section class="coming-soon-container">
+
+        <div class="coming-soon-card">
+            <span class="coming-soon-icon">📊</span>
+            <h2>Módulo de Relatórios</h2>
+            <p>Estamos preparando gráficos e insights detalhados sobre o faturamento e desempenho do salão. Em breve esta funcionalidade estará totalmente disponível!</p>
+        </div>
+    </section>
+</main>
+
+<script th:src="@{/js/menu-drop-down.js}"></script>
+<script>
+    // Script básico para carregar o primeiro nome no header (igual ao dashboard)
+    document.addEventListener("DOMContentLoaded", () => {
+        const nomeUsuario = localStorage.getItem("nomeUsuario") || "Colaborador";
+        const primeiroNome = nomeUsuario.split(" ")[0];
+        const nomeHeader = document.getElementById("saudacao-header");
+        if (nomeHeader) nomeHeader.textContent = primeiroNome;
+    });
+</script>
+</body>
+</html>

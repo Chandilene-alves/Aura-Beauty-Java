@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Aura Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/global.css}">
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
@@ -18,14 +21,16 @@
     <hr>
     <form id="loginForm">
         <h2>Bem-vindo!</h2>
-        <p class="desc">Faça login para gerenciar seus agendamentos.</p>
+        <p class="desc">Faça login para gerenciar os seus agendamentos.</p>
 
         <label for="username">E-mail </label>
         <input type="text" id="username" placeholder="seu.email@exemplo.com" required>
 
         <label for="password">Senha</label>
+        <div class="password-container">
         <input type="password" id="password" placeholder="Digite sua senha" required>
-
+        <img th:src="@{/assets/icons/visibility_off.svg}" class="toggle-password" id="btn-senha" alt="Mostrar senha">
+            </div>
         <div class="row">
 
             <a href="#">Esqueceu a senha?</a>
@@ -34,7 +39,7 @@
         <button type="submit" class="login" id="loginBtn">Entrar</button>
 
         <p class="signup">
-            Não tem uma conta? <a th:href="@{/criarconta}">Criar conta</a>
+            Não tem uma conta? <a th:href="@{/usuarios}">Criar conta</a>
         </p>
         <hr>
     </form>
