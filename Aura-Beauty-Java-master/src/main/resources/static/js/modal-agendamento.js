@@ -260,7 +260,8 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarResumo();
         modal.style.display = "flex";
       } else {
-        alert("Erro ao carregar dados do agendamento.");
+
+        mostrarNotificacao("Erro ao carregar dados do agendamento.", "erro");
       }
     } catch (error) {
       console.error("Erro na requisição de edição:", error);
@@ -271,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     if (!horarioSelecionado) {
-      alert("Por favor, selecione um horário!");
+      mostrarNotificacao("Por favor, selecione um horário!", "warning");
       return;
     }
 
@@ -305,7 +306,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (response.ok) {
-        alert(agendamentoId ? "Agendamento updated com sucesso!" : "Agendamento realizado com sucesso!");
+        mostrarNotificacao(agendamentoId ? "Agendamento atualizado com sucesso!" : "Agendamento realizado com sucesso!", "sucesso");
+
         fecharModal();
 
         if (typeof carregarAgendamentosDoDia === "function") {
@@ -315,10 +317,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } else {
         const erro = await response.text();
-        alert("Erro ao salvar agendamento: " + erro);
+        mostrarNotificacao("Erro ao salvar agendamento: ", "erro");
+
       }
     } catch (error) {
       console.error("Erro na requisição:", error);
+      mostrarNotificacao("Erro de conexão com o servidor. ", "erro");
       alert("Erro de conexão com o servidor.");
     }
   });

@@ -69,7 +69,11 @@
         </div>
 
         <div class="logout-dropdown" id="logoutDropdown">
-            <a href="#" id="btnLogout" class="dropdown-item">
+            <a th:href="@{/usuarios}" id="btnsingup" class="dropdown-item signup">
+                <img th:src="@{/assets/icons/person_add.svg}" alt="">
+                Criar usuário
+            </a>
+            <a href="#" id="btnLogout" class="dropdown-item logout">
                 <img th:src="@{/assets/icons/logout.svg}" alt="">
                 Sair
             </a>
@@ -144,5 +148,7 @@
 <script th:src="@{/js/modal-servico.js}"></script>
 <script th:src="@{/js/menu-drop-down.js}"></script>
 <script th:src="@{/js/servico.js}"></script>
+
+<script th:src="@{/js/notifications.js}"></script>
 </body>
 </html>

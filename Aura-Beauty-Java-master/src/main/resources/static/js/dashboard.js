@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const primeiroNome = nomeUsuario.split(" ")[0];
 
     if (!token) {
-        alert("Acesso negado! Por favor, faça login.");
+        mostrarNotificacao("Acesso negado! Por favor, faça login.", "erro");
         window.location.href = "/login";
         return;
     }
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         elementoDia.textContent = dia;
     }
 
-    // 🌟 LOGICA DAS PÍLULAS DE FILTRO
     const pilulas = document.querySelectorAll(".btn-pill");
     pilulas.forEach(pilula => {
         pilula.addEventListener("click", (e) => {
@@ -70,7 +69,7 @@ const brandColors = [
     "#f2d960", "#f7e898"
 ];
 
-// 🌟 Altera os textos dinamicamente baseado no filtro ativo
+
 const atualizarLabelsCards = (opcao) => {
     const txtTitulo = document.getElementById("appointments-title");
     const txtDescricaoVendas = document.getElementById("sales-description");

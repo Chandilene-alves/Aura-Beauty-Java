@@ -35,18 +35,21 @@ public class SecurityConfigurations {
 
 
                     req.requestMatchers(HttpMethod.GET, "/usuarios").permitAll();
-                    req.requestMatchers(HttpMethod.POST, "/usuarios/api").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/usuarios/api").hasRole("ADMIN");
 
                     req.requestMatchers(HttpMethod.GET, "/agendamentos").permitAll();
-                    req.requestMatchers("/api/agendamentos", "/api/agendamentos/**").authenticated();
+                    req.requestMatchers("/api/agendamentos", "/api/agendamentos/**").hasAnyRole("ADMIN", "COLABORADOR");
 
                     req.requestMatchers(HttpMethod.GET, "/dashboard").permitAll();
-                    req.requestMatchers("/api/dashboard/**").authenticated();
+                    req.requestMatchers("/api/dashboard/**").hasRole("ADMIN");
 
                     req.requestMatchers(HttpMethod.GET, "/servicos").permitAll();
-                    req.requestMatchers("/api/servicos/", "/api/servicos/**").authenticated();
+                    req.requestMatchers(HttpMethod.GET, "/api/servicos", "/api/servicos/**").hasAnyRole("ADMIN", "COLABORADOR");
+                    req.requestMatchers("/api/servicos/", "/api/servicos/**").hasRole("ADMIN");
 
                     req.requestMatchers(HttpMethod.GET, "/relatorios").permitAll();
+
+                    req.requestMatchers(HttpMethod.GET, "/agendamentos-colaborador").permitAll();
 
                     req.anyRequest().authenticated();
                 })

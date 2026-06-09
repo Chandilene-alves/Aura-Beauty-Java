@@ -23,4 +23,9 @@ public class PaginasController {
     public String relatorios() {
         return "relatorios";
     }
+
+    @GetMapping("/agendamentos-colaborador")
+    public String paginaAgendamentosColaborador() {
+        return "agendamentos-colaborador";
+    }
 }

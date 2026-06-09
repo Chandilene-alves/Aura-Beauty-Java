@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const primeiroNome = nomeUsuario.split(" ")[0];
 
     if (!token) {
-        alert("Acesso negado! Por favor, faça login.");
+        mostrarNotificacao("Acesso negado! Por favor, faça login.", "erro");
+
         window.location.href = "/login";
         return;
     }

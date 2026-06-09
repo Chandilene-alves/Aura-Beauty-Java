@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const primeiroNome = nomeUsuario.split(" ")[0];
 
     if (!token) {
-        alert("Acesso negado! Por favor, faça login.");
+
+        mostrarNotificacao("Acesso negado! Por favor, faça login.", "erro");
         window.location.href = "/login";
         return;
     }
@@ -111,7 +112,8 @@ async function filtrarAgendamentos(tipoPeriodo) {
             document.getElementById("container-cards").style.display = "none";
             document.getElementById("container-tabela").style.display = "block";
         } else if (response.status === 403 || response.status === 401) {
-            alert("Sua sessão expirou. Por favor, faça login novamente.");
+
+            mostrarNotificacao("Sua sessão expirou. Por favor, faça login novamente.", "erro");
             window.location.href = "/login";
         }
     } catch (error) {
@@ -207,11 +209,12 @@ async function cancelarAgendamento(id) {
             });
 
             if (response.ok) {
-                alert("Agendamento cancelado com sucesso!");
+                mostrarNotificacao("Agendamento cancelado com sucesso!", "sucesso");
 
                 filtrarAgendamentos(filtroAtual);
             } else {
-                alert("Não foi possível cancelar o agendamento.");
+
+                mostrarNotificacao("Não foi possível cancelar o agendamento.", "erro");
             }
         } catch (error) {
             console.error("Erro ao deletar:", error);

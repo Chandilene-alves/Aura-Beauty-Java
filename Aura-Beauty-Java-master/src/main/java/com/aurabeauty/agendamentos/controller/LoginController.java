@@ -38,6 +38,7 @@ public class LoginController {
         var usuario = (Usuario) authentication.getPrincipal();
         var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT, usuario.getNome()));
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT, usuario.getNome(), usuario.getPerfil().name()));
     }
 }

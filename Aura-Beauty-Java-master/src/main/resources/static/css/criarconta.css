@@ -36,6 +36,18 @@ body {
     box-shadow: 0 10px 30px rgba(180, 145, 86, 0.18);
 }
 
+
+.back{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+}
+
+.back a {
+    color: #1b4342;
+}
+
 .card-header .logo {
     width: 130px;
     height: auto;
@@ -65,7 +77,8 @@ body {
     margin-bottom: 4px;
 }
 
-.input-group input {
+.input-group input ,
+.input-group select{
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #e0e0e0;
@@ -75,9 +88,23 @@ body {
     background-color: #fff;
     outline: none;
     transition: border-color 0.2s;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
-.input-group input:focus {
+.input-group select {
+    background-image: url('../assets/icons/arrow-down.svg');
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 20px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.input-group input:focus ,
+.input-group select:focus{
     border-color: #1f4d4b;
 }
 

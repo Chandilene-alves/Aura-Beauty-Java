@@ -37,7 +37,7 @@ public class UsuarioController {
 
         String senhaCriptografada = passwordEncoder.encode(dados.senha());
 
-        var usuario = new Usuario(dados.nome(), dados.email(), senhaCriptografada, dados.cargo());
+        var usuario = new Usuario(dados.nome(), dados.email(), senhaCriptografada, dados.perfil());
         repository.save(usuario);
 
         return ResponseEntity.ok("Usuário cadastrado com sucesso!");

@@ -95,7 +95,12 @@
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.logout-dropdown .dropdown-item:hover {
+.logout-dropdown .signup:hover {
+    background-color: #f5f2eb;
+
+}
+
+.logout-dropdown .logout:hover {
     background-color: #f5f2eb;
     color: #b22222;
 }

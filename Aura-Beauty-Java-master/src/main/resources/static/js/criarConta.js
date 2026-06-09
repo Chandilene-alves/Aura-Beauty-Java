@@ -1,7 +1,7 @@
 const form = document.querySelector("#form-cadastro");
 const nome = document.querySelector("#nome")
 const email = document.querySelector("#email")
-const cargo = document.querySelector("#cargo")
+const perfil = document.querySelector("#perfil");
 const senha = document.querySelector("#senha")
 const confirmeSenha = document.querySelector("#confirme-senha")
 
@@ -23,12 +23,13 @@ form.addEventListener("submit", async (e) => {
 
     const nomeDigitado = nome.value
     const emailDigitado = email.value
-    const cargoDigitado = cargo.value
+    const perfilSelecionado = perfil.value;
     const senhaDigitado = senha.value
     const confirmeSenhaDigitado = confirmeSenha.value
 
     if(senhaDigitado !== confirmeSenhaDigitado){
-        alert("As senhas não conferem")
+
+        mostrarNotificacao("As senhas não conferem", "erro");
         return
     }
 
@@ -37,28 +38,32 @@ form.addEventListener("submit", async (e) => {
         email: emailDigitado,
         senha:senhaDigitado,
         confirmarSenha: confirmeSenhaDigitado,
-        cargo: cargoDigitado,
+        perfil: perfilSelecionado
     }
-
+    const token = localStorage.getItem('token');
     try{
         const response = await fetch('http://localhost:8080/usuarios/api', {
             method: "POST",
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body:JSON.stringify(dadosUsuario)
         })
 
         if(response.ok){
-            alert("Usuário cadastrado com sucesso!!")
-            window.location.href = '/login';
+
+            mostrarNotificacao("Usuário cadastrado com sucesso!", "sucesso");
+
         }else{
             const messageError = await response.text()
             alert(messageError)
+            mostrarNotificacao(messageError, "erro");
         }
     }catch (error){
         console.error("erro:", error)
-        alert("Não foi possivel cadastrar!")
+
+        mostrarNotificacao("Não foi possível cadastrar!", "erro");
     }
 
 })

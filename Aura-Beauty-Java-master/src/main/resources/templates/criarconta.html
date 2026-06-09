@@ -19,10 +19,20 @@
 
 <div class="page-container">
     <main class="register-card">
+        <div class="back">
+            <img th:src="@{/assets/icons/arrow_back.svg}" alt="">
+            <a th:href="@{/dashboard}">Voltar</a>
+        </div>
 
         <header class="card-header">
             <img th:src="@{/assets/logo.svg}" alt="Aura Beauty Lounge" class="logo">
-            <h1>Crie sua Conta no Aura</h1>
+
+
+
+
+    <h1>Criar conta </h1>
+
+
         </header>
 
         <form id="form-cadastro" >
@@ -38,8 +48,11 @@
             </div>
 
             <div class="input-group">
-                <label th:for="telefone">Cargo</label>
-                <input type="text" id="cargo" name="cargo" placeholder="Cargo do funcionário" required="required">
+                <label th:for="perfil">Perfil de acesso</label>
+                <select id="perfil" name="perfil" class="form-control" required>
+                    <option value="COLABORADOR">Colaborador (Apenas Agendamentos)</option>
+                    <option value="ADMIN">Administrador (Acesso Total)</option>
+                </select>
             </div>
 
             <div class="input-group password-container">
@@ -57,11 +70,13 @@
             <button type="submit" class="btn-submit">CRIAR CONTA</button>
         </form>
 
-        <footer class="card-footer">
-            <a th:href="@{/login}">Já tem uma conta? Vá para o login</a>
-        </footer>
+<!--        <footer class="card-footer">-->
+<!--            <a th:href="@{/login}">Já tem uma conta? Vá para o login</a>-->
+<!--        </footer>-->
     </main>
 </div>
 <script th:src="@{/js/criarConta.js}" defer></script>
+
+<script th:src="@{/js/notifications.js}"></script>
 </body>
 </html>

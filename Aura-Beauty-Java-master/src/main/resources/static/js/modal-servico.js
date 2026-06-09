@@ -46,7 +46,8 @@ window.editarServico = async (id) => {
 
       abrirModal();
     } else {
-      alert("Erro ao carregar dados do serviço.");
+
+      mostrarNotificacao("Erro ao carregar dados do serviço.", "erro");
     }
   } catch (error) {
     console.error("Erro na requisição de edição:", error);
@@ -90,7 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (response.ok) {
-          alert(servicoId ? "Serviço atualizado com sucesso! ✨" : "Serviço cadastrado com sucesso! 🎉");
+
+          mostrarNotificacao(servicoId ? "Serviço atualizado com sucesso! " : "Serviço cadastrado com sucesso! ", "sucesso");
           fecharModal();
 
 
@@ -100,7 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.reload();
           }
         } else {
-          alert("Erro ao salvar o serviço. Verifique as permissões ou os dados.");
+          mostrarNotificacao("Erro ao salvar o serviço. Verifique as permissões ou os dados.", "erro");
+
         }
       } catch (error) {
         console.error("Erro ao enviar dados do serviço:", error);

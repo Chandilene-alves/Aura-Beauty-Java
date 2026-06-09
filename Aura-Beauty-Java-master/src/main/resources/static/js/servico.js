@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const primeiroNome = nomeUsuario.split(" ")[0];
 
     if (!token) {
-        alert("Acesso negado! Por favor, faça login.");
+
+        mostrarNotificacao("Acesso negado! Por favor, faça login.", "erro");
         window.location.href = "/login";
         return;
     }
@@ -35,7 +36,7 @@ async function carregarServicos(){
         renderizarTabela(servicos)
     }catch (error) {
         console.error("Erro ao buscar no servidor:", error)
-        alert("Não foi possível carregar a lista de serviços")
+        mostrarNotificacao("Não foi possível carregar a lista de serviços", "erro")
     }
 }
 
@@ -92,7 +93,7 @@ async function deletarServico(id) {
         });
 
         if (response.ok || response.status === 204) {
-            alert("Serviço excluído com sucesso!");
+            mostrarNotificacao("Serviço excluído com sucesso!", "sucesso");
 
 
             await carregarServicos();
@@ -102,7 +103,7 @@ async function deletarServico(id) {
 
     } catch (error) {
         console.error("Erro ao deletar:", error);
-        alert("Ocorreu um erro ao tentar excluir o serviço.");
+        mostrarNotificacao("Ocorreu um erro ao tentar excluir o serviço.", "erro");
     }
 }
 

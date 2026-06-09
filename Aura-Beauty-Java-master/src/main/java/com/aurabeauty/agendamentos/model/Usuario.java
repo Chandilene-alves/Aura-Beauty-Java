@@ -18,11 +18,12 @@ import java.util.List;
 @EqualsAndHashCode(of = "id_usuario")
 public class Usuario implements UserDetails {
 
-    public Usuario(String nome, String email, String senha, String cargo) {
+    // 🌟 Construtor atualizado: tiramos o cargo e colocamos o perfil direto
+    public Usuario(String nome, String email, String senha, PerfilUsuario perfil) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.cargo = cargo;
+        this.perfil = perfil;
     }
 
     @Id
@@ -36,41 +37,33 @@ public class Usuario implements UserDetails {
 
     private String senha;
 
-    private String cargo;
-
+    // 🌟 Substituído o 'String cargo' pelo Enum de perfil que controla o acesso
+    @Enumerated(EnumType.STRING)
+    private PerfilUsuario perfil;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.perfil == null) {
+            return List.of(new SimpleGrantedAuthority("ROLE_COLABORADOR"));
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.perfil.name()));
     }
 
     @Override
-    public String getPassword() {
-        return this.senha;
-    }
+    public String getPassword() { return this.senha; }
 
     @Override
-    public String getUsername() {
-        return this.email;
-    }
+    public String getUsername() { return this.email; }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+    public boolean isAccountNonExpired() { return true; }
 
     @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+    public boolean isAccountNonLocked() { return true; }
 
     @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+    public boolean isCredentialsNonExpired() { return true; }
 
     @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    public boolean isEnabled() { return true; }
 }
