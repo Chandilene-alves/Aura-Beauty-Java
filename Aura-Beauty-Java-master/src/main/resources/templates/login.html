@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Aura Login</title>
+    <link rel="icon" type="image/svg+xml" th:href="@{/assets/icons/favicon.svg}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&amp;display=swap" rel="stylesheet">
@@ -28,9 +29,10 @@
 
         <label for="password">Senha</label>
         <div class="password-container">
-        <input type="password" id="password" placeholder="Digite sua senha" required>
-        <img th:src="@{/assets/icons/visibility_off.svg}" class="toggle-password" id="btn-senha" alt="Mostrar senha">
-            </div>
+            <input type="password" id="password" placeholder="Digite sua senha" required>
+            <img th:src="@{/assets/icons/visibility_off.svg}" class="toggle-password" id="btn-senha"
+                 alt="Mostrar senha">
+        </div>
         <div class="row">
 
             <a href="#">Esqueceu a senha?</a>

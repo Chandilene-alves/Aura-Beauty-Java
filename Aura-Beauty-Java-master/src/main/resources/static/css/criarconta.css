@@ -37,7 +37,7 @@ body {
 }
 
 
-.back{
+.back {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -77,8 +77,8 @@ body {
     margin-bottom: 4px;
 }
 
-.input-group input ,
-.input-group select{
+.input-group input,
+.input-group select {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #e0e0e0;
@@ -103,8 +103,8 @@ body {
     cursor: pointer;
 }
 
-.input-group input:focus ,
-.input-group select:focus{
+.input-group input:focus,
+.input-group select:focus {
     border-color: #1f4d4b;
 }
 

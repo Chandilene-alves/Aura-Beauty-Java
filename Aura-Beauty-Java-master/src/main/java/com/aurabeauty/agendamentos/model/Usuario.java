@@ -18,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id_usuario")
 public class Usuario implements UserDetails {
 
-    // 🌟 Construtor atualizado: tiramos o cargo e colocamos o perfil direto
+
     public Usuario(String nome, String email, String senha, PerfilUsuario perfil) {
         this.nome = nome;
         this.email = email;
@@ -37,7 +37,6 @@ public class Usuario implements UserDetails {
 
     private String senha;
 
-    // 🌟 Substituído o 'String cargo' pelo Enum de perfil que controla o acesso
     @Enumerated(EnumType.STRING)
     private PerfilUsuario perfil;
 

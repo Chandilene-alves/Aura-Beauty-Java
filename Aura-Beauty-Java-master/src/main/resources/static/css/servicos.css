@@ -70,7 +70,6 @@ main {
 }
 
 
-
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -149,8 +148,13 @@ thead th {
     font-weight: 600;
 }
 
-thead th:first-child { border-radius: 8px 0 0 8px; }
-thead th:last-child { border-radius: 0 8px 8px 0; }
+thead th:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+thead th:last-child {
+    border-radius: 0 8px 8px 0;
+}
 
 tbody td {
     padding: 8px 6px;
@@ -203,14 +207,15 @@ tbody td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 250px; /* Ajuste o tamanho máximo ideal para a sua tela */
+    max-width: 250px;
 }
 
 .btn-flex {
     display: flex;
     justify-content: center;
 
-align-items: center}
+    align-items: center
+}
 
 .cards-dashboard {
     display: flex;
@@ -264,3 +269,4 @@ align-items: center}
     background-color: var(--aura-teal);
     color: var(--aura-white);
 }
+

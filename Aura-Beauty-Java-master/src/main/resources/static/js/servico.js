@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
 
 
@@ -19,8 +19,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     carregarServicos()
 })
 
-async function carregarServicos(){
-    try{
+async function carregarServicos() {
+    try {
         const response = await fetch('/api/servicos', {
             method: 'GET',
             headers: {
@@ -28,28 +28,28 @@ async function carregarServicos(){
             }
         });
 
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error("Erro ao buscar serviços")
         }
 
         const servicos = await response.json()
         renderizarTabela(servicos)
-    }catch (error) {
+    } catch (error) {
         console.error("Erro ao buscar no servidor:", error)
         mostrarNotificacao("Não foi possível carregar a lista de serviços", "erro")
     }
 }
 
-function renderizarTabela(servicos){
+function renderizarTabela(servicos) {
     const tbody = document.getElementById("tabela-servicos")
     tbody.innerHTML = "";
 
-    if(servicos.length === 0){
+    if (servicos.length === 0) {
         tbody.innerHTML = `<tr><td >Nenhum serviço cadastrado.</td></tr>`;
         return
     }
 
-    servicos.forEach(servico =>{
+    servicos.forEach(servico => {
         const tr = document.createElement("tr");
 
         const duracaoFormatada = servico.duracaoMinutos >= 60 ? `${Math.floor(servico.duracaoMinutos / 60)}h` : `${servico.duracaoMinutos}min`;
@@ -79,7 +79,7 @@ function renderizarTabela(servicos){
 }
 
 async function deletarServico(id) {
-    const confirmar = confirm("Tem certeza que deseja excluir este serviço?");
+    const confirmar = await customConfirm("Tem certeza que deseja excluir este serviço?");
 
     if (!confirmar) return;
 

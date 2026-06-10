@@ -313,7 +313,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typeof carregarAgendamentosDoDia === "function") {
           carregarAgendamentosDoDia(token);
         } else {
-          window.location.reload();
+          setTimeout(()=>{
+            window.location.reload();
+          },2500)
         }
       } else {
         const erro = await response.text();

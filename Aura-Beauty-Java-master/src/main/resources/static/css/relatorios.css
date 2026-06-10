@@ -77,8 +77,9 @@ main {
     justify-content: center;
     text-align: center;
     min-height: 60vh;
-    color: #1b4342; /* Teal clássico do Aura */
+    color: #1b4342;
 }
+
 .coming-soon-card {
     background: #ffffff;
 
@@ -87,16 +88,19 @@ main {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     max-width: 500px;
 }
+
 .coming-soon-icon {
     font-size: 3.5rem;
     margin-bottom: 15px;
     display: inline-block;
 }
+
 .coming-soon-card h2 {
     font-size: 1.8rem;
     margin-bottom: 10px;
     font-weight: 700;
 }
+
 .coming-soon-card p {
     color: #666;
     font-size: 1rem;

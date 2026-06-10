@@ -1,5 +1,5 @@
 document.querySelectorAll('.toggle-password').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         const input = this.previousElementSibling;
         if (input.type === 'password') {
             input.type = 'text';

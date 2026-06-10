@@ -1,4 +1,3 @@
-
 let filtroAtual = "";
 let agendamentoId = null;
 
@@ -38,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nomeHeader.textContent = primeiroNome;
     }
 
-    let dia = new Date().toLocaleDateString('pt-BR', { weekday: "long" });
+    let dia = new Date().toLocaleDateString('pt-BR', {weekday: "long"});
     dia = dia.charAt(0).toUpperCase() + dia.slice(1);
 
     const elementoDia = document.getElementById("dia-da-semana");
@@ -157,14 +156,22 @@ function exibirAgendamentos(lista) {
             </tr>`;
         return;
     }
+    const agora = new Date();
 
     lista.forEach(agendamento => {
         let classeStatus = "";
         let textoStatus = "";
 
+        const dataHoraOriginal = new Date(agendamento.dataHora || agendamento.data);
+        const dataFormatada = dataHoraOriginal.toLocaleDateString('pt-BR');
+        const horaFormatada = dataHoraOriginal.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+
         if (agendamento.status === "CANCELADO") {
             classeStatus = "cancel";
             textoStatus = "Cancelado";
+        } else if (dataHoraOriginal < agora) {
+            classeStatus = "completed";
+            textoStatus = "Concluído";
         } else {
             classeStatus = "confirmed";
             textoStatus = "Agendado";
@@ -172,10 +179,16 @@ function exibirAgendamentos(lista) {
 
         const linha = document.createElement("tr");
 
-        const dataHoraOriginal = new Date(agendamento.dataHora || agendamento.data);
-        const dataFormatada = dataHoraOriginal.toLocaleDateString('pt-BR');
-        const horaFormatada = dataHoraOriginal.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-
+        const renderizarBotoes = (textoStatus === "Agendado")
+            ? `
+                <button class="btn-edit" onclick="editarAgendamento(${agendamento.id})">
+                    <img src="/assets/icons/edit.svg" alt="Editar" />
+                </button>
+                <button class="btn-delete" onclick="cancelarAgendamento(${agendamento.id})">
+                    <img src="/assets/icons/block.svg" alt="Deletar" />
+                </button>
+              `
+            : `<span style="color: #a0aec0; font-size: 0.9rem; font-style: italic;"> -- -- -- -- --</span>`;
 
         linha.innerHTML = `
             <td>${dataFormatada} | ${horaFormatada}</td>
@@ -184,13 +197,10 @@ function exibirAgendamentos(lista) {
             <td><strong>${formatarNome(agendamento.profissional)}</strong></td>
             <td>${agendamento.duracao || '45 min'}</td>
             <td><span class="status ${classeStatus}">${textoStatus}</span></td>
-            <td>
-                <button class="btn-edit" onclick="editarAgendamento(${agendamento.id})">
-                    <img src="/assets/icons/edit.svg" alt="Editar" />
-                </button>
-                <button class="btn-delete" onclick="cancelarAgendamento(${agendamento.id})">
-                    <img src="/assets/icons/block.svg" alt="Deletar" />
-                </button>
+           <td>
+                <div class="btn-flex">
+                    ${renderizarBotoes}
+                </div>
             </td>
         `;
 
@@ -198,27 +208,28 @@ function exibirAgendamentos(lista) {
     });
 }
 
-
 async function cancelarAgendamento(id) {
-    if (confirm("Tem certeza que deseja cancelar este agendamento?")) {
-        const token = localStorage.getItem("token");
-        try {
-            const response = await fetch(`http://localhost:8080/api/agendamentos/${id}`, {
-                method: "DELETE",
-                headers: { "Authorization": `Bearer ${token}` }
-            });
 
-            if (response.ok) {
-                mostrarNotificacao("Agendamento cancelado com sucesso!", "sucesso");
+    const confirmar = await customConfirm("Tem certeza que deseja cancelar este agendamento?");
 
-                filtrarAgendamentos(filtroAtual);
-            } else {
+    if (!confirmar) return;
 
-                mostrarNotificacao("Não foi possível cancelar o agendamento.", "erro");
-            }
-        } catch (error) {
-            console.error("Erro ao deletar:", error);
+    const token = localStorage.getItem("token");
+    try {
+        const response = await fetch(`http://localhost:8080/api/agendamentos/${id}`, {
+            method: "DELETE",
+            headers: {"Authorization": `Bearer ${token}`}
+        });
+
+        if (response.ok) {
+            mostrarNotificacao("Agendamento cancelado com sucesso!", "sucesso");
+            filtrarAgendamentos(filtroAtual);
+        } else {
+            mostrarNotificacao("Não foi possível cancelar o agendamento.", "erro");
         }
+    } catch (error) {
+        console.error("Erro ao deletar:", error);
+        mostrarNotificacao("Ocorreu um erro ao tentar cancelar o agendamento.", "erro");
     }
 }
 

@@ -6,7 +6,7 @@ const senha = document.querySelector("#senha")
 const confirmeSenha = document.querySelector("#confirme-senha")
 
 document.querySelectorAll('.toggle-password').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         const input = this.previousElementSibling; // Pega o input que vem antes da imagem
         if (input.type === 'password') {
             input.type = 'text';
@@ -27,7 +27,7 @@ form.addEventListener("submit", async (e) => {
     const senhaDigitado = senha.value
     const confirmeSenhaDigitado = confirmeSenha.value
 
-    if(senhaDigitado !== confirmeSenhaDigitado){
+    if (senhaDigitado !== confirmeSenhaDigitado) {
 
         mostrarNotificacao("As senhas não conferem", "erro");
         return
@@ -36,31 +36,31 @@ form.addEventListener("submit", async (e) => {
     const dadosUsuario = {
         nome: nomeDigitado,
         email: emailDigitado,
-        senha:senhaDigitado,
+        senha: senhaDigitado,
         confirmarSenha: confirmeSenhaDigitado,
         perfil: perfilSelecionado
     }
     const token = localStorage.getItem('token');
-    try{
+    try {
         const response = await fetch('http://localhost:8080/usuarios/api', {
             method: "POST",
-            headers:{
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body:JSON.stringify(dadosUsuario)
+            body: JSON.stringify(dadosUsuario)
         })
 
-        if(response.ok){
+        if (response.ok) {
 
             mostrarNotificacao("Usuário cadastrado com sucesso!", "sucesso");
 
-        }else{
+        } else {
             const messageError = await response.text()
             alert(messageError)
             mostrarNotificacao(messageError, "erro");
         }
-    }catch (error){
+    } catch (error) {
         console.error("erro:", error)
 
         mostrarNotificacao("Não foi possível cadastrar!", "erro");

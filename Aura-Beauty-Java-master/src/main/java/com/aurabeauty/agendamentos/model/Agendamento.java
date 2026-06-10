@@ -46,7 +46,7 @@ public class Agendamento {
                 this.status = StatusAgendamento.AGENDADO;
         }
 
-        // Dentro de Agendamento.java
+
 
         public void atualizarInformacoes(DadosAtualizacaoAgendamento dados, Servico novoServico) {
                 if (dados.cliente() != null) {

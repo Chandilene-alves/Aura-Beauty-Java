@@ -41,7 +41,7 @@ body {
 
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -84,11 +84,113 @@ a{
 }
 
 @keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+.modal-confirm {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(27, 67, 66, 0.25);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-confirm-content {
+    background: var(--aura-white);
+    padding: 32px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(27, 67, 66, 0.12);
+    border: 1px solid var(--border-linhas-table);
+    animation: modalConfirmFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes modalConfirmFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-confirm h3 {
+    font-size: 1.4rem;
+    color: var(--aura-teal);
+    margin: 0 0 10px 0;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.modal-confirm p {
+    font-size: 1rem;
+    color: #5c7574;
+    line-height: 1.5;
+    margin: 0 0 24px 0;
+}
+
+.modal-confirm-botoes {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.modal-confirm-botoes button {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    min-width: 110px;
+}
+
+#btn-confirmar-nao {
+    background-color: transparent;
+    color: var(--aura-teal);
+    border: 1.5px solid var(--aura-teal);
+}
+
+#btn-confirmar-nao:hover {
+    background-color: rgba(27, 67, 66, 0.05);
+    transform: translateY(-2px);
+}
+
+#btn-confirmar-sim {
+    background-color: #dc3545;
+    color: var(--aura-white);
+}
+
+#btn-confirmar-sim:hover {
+    background-color: #bd2130;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
 }

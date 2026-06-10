@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/assets/icons/favicon.svg}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&amp;display=swap" rel="stylesheet">
@@ -16,14 +17,14 @@
 <body>
 <aside class="sidebar">
     <div class="logo">
-        <img th:src="@{/assets/logo.svg}" alt="Aura Beauty Lounge" />
+        <img th:src="@{/assets/logo.svg}" alt="Aura Beauty Lounge"/>
     </div>
     <nav>
         <ul>
 
             <li>
-                <a th:href="@{/agendamentos}" class="active"
-                ><img th:src="@{/assets/icons/calendar.svg}" alt="" /> Agendamentos</a
+                <a th:href="@{/agendamentos-colaborador}" class="active"
+                ><img th:src="@{/assets/icons/calendar.svg}" alt=""/> Agendamentos</a
                 >
             </li>
 
@@ -68,14 +69,14 @@
         <div class="section-header">
             <h2 id="saudacao-banner"></h2>
             <button class="btn-new-appointment">
-                <img th:src="@{/assets/icons/add.svg}" alt="" /> Novo Agendamento
+                <img th:src="@{/assets/icons/add.svg}" alt=""/> Novo Agendamento
             </button>
         </div>
 
-      <h3 class="subtitulo-agenda">Liste seus agendamentos: </h3>
+        <h3 class="subtitulo-agenda">Liste seus agendamentos: </h3>
 
         <div id="container-cards" class="cards-dashboard">
-            <div class="card-periodo" onclick="filtrarAgendamentos('hoje')" >
+            <div class="card-periodo" onclick="filtrarAgendamentos('hoje')">
                 <img th:src="@{/assets/icons/today.svg}"/>
 
                 <h3>Hoje</h3>
@@ -117,10 +118,10 @@
                     <td><span class="status "></span></td>
                     <td>
                         <button class="btn-edit">
-                            <img th:src="@{/assets/icons/edit.svg}" alt="" />
+                            <img th:src="@{/assets/icons/edit.svg}" alt=""/>
                         </button>
                         <button class="btn-delete">
-                            <img th:src="@{/assets/icons/block.svg}" alt="" />
+                            <img th:src="@{/assets/icons/block.svg}" alt=""/>
                         </button>
                     </td>
                 </tr>
@@ -139,7 +140,7 @@
         <header class="modal-header">
             <h2>Novo Agendamento</h2>
             <button class="close-modal" id="btn-fechar">
-                <img th:src="@{/assets/icons/close.svg}" alt="botao para fechar modal" />
+                <img th:src="@{/assets/icons/close.svg}" alt="botao para fechar modal"/>
             </button>
         </header>
 
@@ -148,7 +149,7 @@
                 <div class="modal-col">
                     <div class="input-group">
                         <label><span class="step-number">1</span> Cliente</label>
-                        <input type="text" id="modal-cliente" placeholder="Nome do cliente" required />
+                        <input type="text" id="modal-cliente" placeholder="Nome do cliente" required/>
                     </div>
                     <div class="input-group">
                         <label><span class="step-number">2</span> Serviço</label>
@@ -165,7 +166,7 @@
                 <div class="modal-col">
                     <div class="input-group">
                         <label><span class="step-number">4</span> Data e Hora</label>
-                        <input type="date" id="modal-data" required />
+                        <input type="date" id="modal-data" required/>
                     </div>
                     <div>
                         <label> Horários disponíveis</label>
@@ -215,7 +216,19 @@
     </div>
 </div>
 
+<div id="modal-confirmacao" class="modal-confirm" style="display: none;">
+    <div class="modal-confirm-content">
+        <h3>Confirmação</h3>
+        <p id="modal-confirmacao-texto">Tem certeza que deseja excluir este serviço?</p>
+        <div class="modal-confirm-botoes">
+            <button id="btn-confirmar-nao" class="btn-secundario">Não</button>
+            <button id="btn-confirmar-sim" class="btn-perigo">Sim, Excluir</button>
+        </div>
+    </div>
+</div>
+
 <script th:src="@{/js/agendamentos.js}"></script>
+<script th:src="@{/js/modalConfirm.js}"></script>
 <script th:src="@{/js/menu-drop-down.js}"></script>
 <script th:src="@{/js/modal-agendamento.js}"></script>
 

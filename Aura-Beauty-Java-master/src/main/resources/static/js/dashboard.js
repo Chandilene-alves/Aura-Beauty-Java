@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nomeHeader.textContent = primeiroNome;
     }
 
-    let dia = new Date().toLocaleDateString('pt-BR', { weekday: "long" });
+    let dia = new Date().toLocaleDateString('pt-BR', {weekday: "long"});
     dia = dia.charAt(0).toUpperCase() + dia.slice(1);
 
     const elementoDia = document.getElementById("dia-da-semana");
@@ -118,7 +118,7 @@ const calcularIntervaloDatas = (opcao) => {
         fim = formatarDataBR(ultimoDia);
     }
 
-    return { inicio, fim };
+    return {inicio, fim};
 };
 
 const loadAppointments = async () => {
@@ -129,7 +129,7 @@ const loadAppointments = async () => {
         const activePill = document.querySelector(".btn-pill.active");
         const filtro = activePill ? activePill.getAttribute("data-periodo") : "hoje";
 
-        const { inicio, fim } = calcularIntervaloDatas(filtro);
+        const {inicio, fim} = calcularIntervaloDatas(filtro);
 
         const response = await fetch(
             `${API_URL}/api/agendamentos/periodo?inicio=${inicio}&fim=${fim}`,
@@ -199,7 +199,7 @@ const createChart = (services, appointments) => {
 
     for (let i = 0; i < appointments.length; i++) {
         const appointment = appointments[i];
-        const { nomeServico } = appointment;
+        const {nomeServico} = appointment;
 
         const index = serviceNames.indexOf(nomeServico);
         if (index === -1) {
@@ -233,7 +233,7 @@ const createChart = (services, appointments) => {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { position: "right" },
+                legend: {position: "right"},
                 tooltip: {
                     callbacks: {
                         label: (context) => {
